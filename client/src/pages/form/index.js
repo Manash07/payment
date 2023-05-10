@@ -3,10 +3,13 @@ import Login from "./formhandler/login";
 import Register from "./formhandler/register";
 import Controllogin from "./controllers/logincontroller";
 import Controlregister from "./controllers/registercontroller";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 export default function Home() {
   return (
     <>
+    <Header/>
       <section className="user-portal">
         <div className="my-4 h-100 d-flex justify-content-center">
           <div
@@ -27,6 +30,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+    <Footer/>
     </>
   );
 }

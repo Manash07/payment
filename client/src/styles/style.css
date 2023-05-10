@@ -1,17 +1,44 @@
-* {
-}
+@import url('https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Recursive:wght@300&display=swap');
 
 .main-card-login {
-  border: 1px solid black;
+  border: 2px solid #11959D;
 }
 
 h5 {
   color: rgb(0, 176, 221);
 }
-a {
+.main-card-login a {
   color: black !important;
 }
 
-a:hover {
+.main-card-login a:hover {
   color: rgb(0, 176, 221) !important;
+}
+
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+.logo-text{
+
+  font-family: 'Recursive', sans-serif;
+  font-size: 1.5rem;
+}
+.pay-logo{
+
+  color: rgb(0, 176, 221);
+  font-family: 'Cedarville Cursive', cursive;
+
+}
+
+.page-footer{
+
+  background: #11959D;
+  color: white;
+  height: 4.2rem;
 }

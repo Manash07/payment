@@ -3,13 +3,29 @@ export default function Mockhome() {
   const [isVisible, changeIsVisible] = useState(true);
   return (
     <>
+      <header>
+        <nav className="navbar bg-body-tertiary">
+          <div className="container-fluid">
+            <a className="navbar-brand logo-text" href="#">
+              <img
+                src="/Cpaylogo.ico"
+                alt="Logo"
+                width={28}
+                height={24}
+                className="d-inline-block align-text-top mx-2"
+              />
+              Chitto <span className="pay-logo"> Pay </span>
+            </a>
+          </div>
+        </nav>
+      </header>
       <section className="user-portal">
         <div className="my-4 h-100 d-flex justify-content-center">
           <div
             className="card main-card-login"
             style={{ width: "50rem", height: "38rem" }}
           >
-            <h5 className="my-4 mx-3">User Portal</h5>
+            <h5 className="my-4 mx-3">User Portal </h5>
 
             <div className="card-body">
               <ul className="nav nav-tabs">
@@ -37,13 +53,14 @@ export default function Mockhome() {
                 className="loginForm my-4"
                 style={{ display: isVisible ? "block" : "none" }}
               >
-                <form>
+                <form autoComplete="off">
                   <div className="mb-3">
                     <label htmlFor="exampleInputEmail1" className="form-label">
-                      Username <span style={{ color: "darkgreen" }}> * </span>
+                      Email Address{" "}
+                      <span style={{ color: "darkgreen" }}> * </span>
                     </label>
                     <input
-                      type="text"
+                      type="email"
                       className="form-control"
                       id="exampleInputEmail1"
                       aria-describedby="emailHelp"
@@ -94,7 +111,7 @@ export default function Mockhome() {
                 className="register-form my-4"
                 style={{ display: !isVisible ? "block" : "none" }}
               >
-                <form>
+                <form autoComplete="off">
                   <div className="mb-3">
                     <label htmlFor="exampleInputEmail1" className="form-label">
                       Email Address <span style={{ color: "red" }}> * </span>
@@ -160,6 +177,11 @@ export default function Mockhome() {
           </div>
         </div>
       </section>
+      <footer>
+        <div class="card-footer text-body-secondary page-footer">
+          <p className="mx-5 py-2"> Copyright © ChittoPay. All rights reserved</p>
+        </div>
+      </footer>
     </>
   );
 }
