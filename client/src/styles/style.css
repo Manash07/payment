@@ -1,0 +1,17 @@
+* {
+}
+
+.main-card-login {
+  border: 1px solid black;
+}
+
+h5 {
+  color: rgb(0, 176, 221);
+}
+a {
+  color: black !important;
+}
+
+a:hover {
+  color: rgb(0, 176, 221) !important;
+}
