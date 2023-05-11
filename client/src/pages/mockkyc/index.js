@@ -5,7 +5,63 @@ const Kycform = () => {
   return (
     <>
       <Header />
-      <section className="kycform">
+      <section className="header-two">
+        <nav className="navbar navbar-expand-lg htwo">
+          <div className="container">
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span className="navbar-toggler-icon" />
+            </button>
+            <div
+              className="collapse navbar-collapse"
+              id="navbarSupportedContent"
+            >
+              <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li className="nav-item">
+                  <a className="nav-link" aria-current="page" href="#">
+                    Option 1
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    Option 2
+                  </a>
+                </li>
+                <li className="nav-item dropdown">
+                  <a
+                    className="nav-link"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Option 3
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link">Option 4</a>
+                </li>
+                <form className="d-flex" role="search">
+                  <input
+                    className="form-control me-2"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                  />
+                </form>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </section>
+      <section className="kycform my-3">
         <div className="container">
           <h5> Please fill your KYC Form </h5>
           <div className="my-4 h-80 d-flex justify-content-start">
@@ -79,9 +135,7 @@ const Kycform = () => {
                         <option selected>Choose your document type</option>
                         <option>License</option>
                         <option>Citizenship</option>
-                        <option>
-                          National Identity Card
-                        </option>
+                        <option>National Identity Card</option>
                       </select>
                     </div>
 
