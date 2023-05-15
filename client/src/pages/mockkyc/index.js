@@ -4,10 +4,26 @@ import Footer from "@/components/footer";
 const Kycform = () => {
   return (
     <>
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+      ></link>
       <Header />
       <section className="header-two">
         <nav className="navbar navbar-expand-lg htwo">
           <div className="container">
+            <a class="navbar-brand" href="#">
+              Link 1
+            </a>
+            <a class="navbar-brand" href="#">
+              Link 2
+            </a>
+            <a class="navbar-brand" href="#">
+              Link 3
+            </a>
+            <a class="navbar-brand" href="#">
+              Link 4
+            </a>
             <button
               className="navbar-toggler"
               type="button"
@@ -62,12 +78,18 @@ const Kycform = () => {
         </nav>
       </section>
       <section className="kycform my-3">
-        <div className="container">
-          <h5> Please fill your KYC Form </h5>
-          <div className="my-4 h-80 d-flex justify-content-start">
-            <div className="card" style={{ width: "45rem" }}>
+        <div className="container-fluid row">
+          <div className="col-sm-12 col-md-6 col-lg-6 main-box">
+            <div className="card mx-2 my-2" style={{ width: "52rem" }}>
               <div className="card-body">
+                <h5> Please fill your KYC form </h5>
                 <div className="row">
+                  <span
+                    style={{ color: "red", fontSize: "10px" }}
+                    className=""
+                  >
+                    All fields are mandatory *
+                  </span>
                   <div className="col-md-6 col-lg-6 col-sm-12">
                     <img
                       src="/Icon.png"
@@ -160,8 +182,81 @@ const Kycform = () => {
                         aria-describedby="addon-wrapping"
                       />
                     </div>
+
+                    <div className="input-group flex-nowrap">
+                      <input
+                        type="text"
+                        className="form-control my-3"
+                        placeholder="Emergency contact person"
+                        aria-label="Username"
+                        aria-describedby="addon-wrapping"
+                      />
+                    </div>
+
+                    <div className="input-group flex-nowrap">
+                      <input
+                        type="text"
+                        className="form-control my-3"
+                        placeholder="Relation with emergency contact person"
+                        aria-label="Username"
+                        aria-describedby="addon-wrapping"
+                      />
+                    </div>
+
+                    <div className="input-group flex-nowrap">
+                      <input
+                        type="text"
+                        className="form-control my-3"
+                        placeholder="Emergency contact person's number"
+                        aria-label="Username"
+                        aria-describedby="addon-wrapping"
+                      />
+                    </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+          <div className="col-sm-12 col-md-6 col-lg-6 main-box">
+            <div className="card mx-2 my-2" style={{ width: "52rem" }}>
+              <div className="card-body">
+                <h5 className="card-title my-3 mb-3">Terms and Condition</h5>
+                <h6 className="card-subtitle mb-2 text-body-secondary">
+                  Please read terms and condition before submitting
+                </h6>
+                <p className="card-text my-3">
+                  <i class="bi bi-arrow-right-square-fill px-2"></i> Registered
+                  Merchants are authorized to sell goods and services that are
+                  stated in merchant agreement only.{" "}
+                </p>
+                <p className="card-text my-3">
+                  <i class="bi bi-arrow-right-square-fill px-2"></i>Chhitopay continuously endeavor to ensure that ‘Notices and Alerts’ are communicated to users in accordance with your instructions in this regard. However, Chhitopay shall not be held responsible or liable for non-dispatch or delay in dispatch of the alerts for any reason whatsoever.{" "}
+                </p>
+             
+                <p className="card-text my-3">
+                  <i class="bi bi-arrow-right-square-fill px-2"></i> Using Send Money
+                  service for the purpose of buying/selling goods and services,
+                  foreign currencies, gift cards, gaming coins/cards/utilities,
+                  remittance and other deemed illegal by prevailing laws of
+                  Nepal Government.{" "}
+                </p>
+                <p className="card-text my-3">
+                  <i class="bi bi-arrow-right-square-fill px-2"></i>Please be aware that your carrier’s normal rates and fees, such as text messaging and data charges, may apply to some carrier and can change from time to time.{" "}
+                </p>
+
+                <p className="card-text my-3">
+                  <i class="bi bi-arrow-right-square-fill px-2"></i> Over and above
+                  the present Terms and Service, Merchants shall agree and
+                  qualify all the requirements, and provisions as specified
+                  under Merchant Agreement.
+                </p>
+                <p className="card-text my-3">
+                  <i class="bi bi-arrow-right-square-fill px-2"></i> In case of a
+                  corporation, trust, association of persons or a firm, which
+                  can enter into legally binding contracts under applicable law
+                  and shall be authorized to agree to the Terms and Conditions
+                  and to access, use and avail the Website and the Services.
+                </p>
               </div>
             </div>
           </div>

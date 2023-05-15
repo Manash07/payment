@@ -41,6 +41,11 @@ input[type=number]::-webkit-outer-spin-button {
 
 }
 
+.main-box{
+
+  border: 1px solid black;
+}
+
 footer{
 
   background: #11959D;
@@ -71,7 +76,7 @@ input[type="date"]:hover{
   color: #ffffff;
 }
 
-@media only screen and (max-height: 705px) {
+@media only screen and (max-height: 0px) {
 
   footer{
 
@@ -92,4 +97,14 @@ input[type="date"]:hover{
   color: #ffffff;
   cursor: pointer;
   
+}
+
+.bi-arrow-right-square-fill{
+
+  color: rgb(2, 84, 2) !important;
+}
+
+h6{
+
+  color: green;
 }
