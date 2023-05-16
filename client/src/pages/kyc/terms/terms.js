@@ -1,4 +1,4 @@
-import tacrules from "../ruleslist";
+import tacrules from "../../../data/ruleslist";
 
 const Terms = () => {
   return (
@@ -7,7 +7,7 @@ const Terms = () => {
         <div className="card-body">
           <h5 className="card-title my-3 mb-3">Terms and Condition</h5>
           <h6 className="card-subtitle mb-2 text-body-secondary">
-            Please read terms and condition before submitting
+            Please agree on terms and condition to proceed 
           </h6>
           {tacrules.map((e) => (
             <p className="card-text my-3">

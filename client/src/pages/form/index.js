@@ -5,8 +5,11 @@ import Controllogin from "./controllers/logincontroller";
 import Controlregister from "./controllers/registercontroller";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import SecondaryHeader from "@/components/secondarynavbar";
+import { useState } from "react";
 
 export default function Home() {
+  const [isVisible, changeIsVisible] = useState(true);
   return (
     <>
     <Header/>

@@ -39,7 +39,7 @@ const Kycform = () => {
               <div className="row">
                 <div className="col-md-6 col-lg-6 col-sm-12">
                   <img
-                    src="/Icon.png"
+                    src="/icon.png"
                     className="img-thumbnail my-3"
                     alt="..."
                     style={{ width: "10rem", height: "10rem" }}
