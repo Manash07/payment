@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
-const Register = (props) => {
-   
+const Register = () => {
+    const [isVisible, changeIsVisible] = useState(true);
 
     return(<>
 
 <div
 className="register-form my-4"
-style={{ display: !props.isVisible ? "block" : "none" }}
+style={{ display: !isVisible ? "block" : "none" }}
 >
 <form>
   <div className="mb-3">

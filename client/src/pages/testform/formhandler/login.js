@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
-const Login = (props) => {
-  
+const Login = () => {
+  const [isVisible, changeIsVisible] = useState(true);
   return (
     <>
       <div
         className="loginForm my-4"
-        style={{ display: props.isVisible ? "block" : "none" }}
+        style={{ display: isVisible ? "block" : "none" }}
       >
         <form>
           <div className="mb-3">
