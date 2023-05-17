@@ -94,6 +94,7 @@ const Mockkyc = () => {
                         aria-describedby="addon-wrapping"
                       />
                     </div>
+                    <button type="button" class="btn btn-success">Submit</button>
                   </div>
                   <div className="col-md-6 col-lg-6 col-sm-12">
                     <div className="input-group flex-nowrap">
@@ -137,7 +138,7 @@ const Mockkyc = () => {
                         type="number"
                         className="form-control my-3"
                         placeholder="Enter your document number"
-                        aria-label="Username"
+                        aria-label="documentNumber"
                         aria-describedby="addon-wrapping"
                       />
                     </div>
@@ -170,6 +171,7 @@ const Mockkyc = () => {
                         aria-label="Username"
                         aria-describedby="addon-wrapping"
                       />
+                    
                     </div>
                   </div>
                 </div>
