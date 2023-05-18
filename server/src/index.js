@@ -12,7 +12,7 @@ const userSchema = require("./model/users");
 connectToDb();
 app.use(express.json());
 
-console.log("connected to database");
+console.log("Now you are connected to database");
 
 app.use('/',userRoute)
 
