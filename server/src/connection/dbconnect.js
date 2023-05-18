@@ -7,6 +7,7 @@ const connectToDb = async()=>{
       }
     }catch(err){
       console.log(err)
+      console.log("Check")
     }
   }
 
