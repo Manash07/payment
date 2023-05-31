@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
 app.use(cors());
-require("dotenv").config();
+require("dotenv").config(); // Used to run process.env command
 const userRoute = require('./route/userRoute')
 
 const connectToDb = require("./connection/dbconnect");

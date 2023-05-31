@@ -1,187 +1,254 @@
 import React, { useState } from "react";
+import { Formik } from "formik";
+import * as Yup from "yup";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+
+// Creating yup schema
+
+const schema = Yup.object().shape({
+  name: Yup.string()
+    .min(5, "Full name must be more than 5 letters")
+    .max(20, "Full name must not exceeds 25 letters")
+    .required("Required"),
+
+  email: Yup.string().email().required("Required"),
+
+  phoneNumber: Yup.string()
+    .min(10, "Phone number should not be less than 10 numbers")
+    .max(10, "Phone number should not exceeds 10 numbers")
+    .required("Required"),
+
+  password: Yup.string()
+    .required("Required")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+    ),
+});
+
 export default function Mockhome() {
   const [isVisible, changeIsVisible] = useState(true);
   return (
     <>
-      <header>
-        <nav className="navbar bg-body-tertiary">
-          <div className="container-fluid">
-            <a className="navbar-brand logo-text" href="#">
-              <img
-                src="/Cpaylogo.ico"
-                alt="Logo"
-                width={28}
-                height={24}
-                className="d-inline-block align-text-top mx-2"
-              />
-              Chitto <span className="pay-logo"> Pay </span>
-            </a>
-          </div>
-        </nav>
-      </header>
-      <section className="user-portal">
-        <div className="my-4 h-100 d-flex justify-content-center">
-          <div
-            className="card main-card-login"
-            style={{ width: "50rem", height: "38rem" }}
-          >
-            <h5 className="my-4 mx-3">User Portal </h5>
-
-            <div className="card-body">
-              <ul className="nav nav-tabs">
-                <li className="nav-item">
-                  <a
-                    onClick={() => changeIsVisible(true)}
-                    className="nav-link"
-                    aria-current="page"
-                    href="#"
-                  >
-                    Login
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a
-                    onClick={() => changeIsVisible(false)}
-                    className="nav-link"
-                    href="#"
-                  >
-                    Register
-                  </a>
-                </li>
-              </ul>
+      <Header />
+      <Formik
+        validationSchema={schema}
+        initialValues={{
+          name: "",
+          password: "",
+          email: "",
+          phoneNumber: "",
+        }}
+        onSubmit={(values) => {
+          return console.log("Status true", values);
+        }}
+      >
+        {({ values, touched, handleChange, handleSubmit, errors, handleBlur}) => (
+          <section className="user-portal">
+            <div className="my-4 h-100 d-flex justify-content-center">
               <div
-                className="loginForm my-4"
-                style={{ display: isVisible ? "block" : "none" }}
+                className="card main-card-login"
+                style={{ width: "50rem", height: "38rem" }}
               >
-                <form autoComplete="off">
-                  <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label">
-                      Email Address{" "}
-                      <span style={{ color: "darkgreen" }}> * </span>
-                    </label>
-                    <input
-                      type="email"
-                      className="form-control"
-                      id="exampleInputEmail1"
-                      aria-describedby="emailHelp"
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label
-                      htmlFor="exampleInputPassword1"
-                      className="form-label"
-                    >
-                      Password <span style={{ color: "red" }}> * </span>
-                    </label>
-                    <input
-                      type="password"
-                      className="form-control"
-                      id="exampleInputPassword1"
-                    />
-                  </div>
+                <h5 className="my-4 mx-3">User Portal </h5>
 
-                  <div className="mb-3">
-                    <label
-                      htmlFor="exampleInputPassword1"
-                      className="form-label"
-                    >
-                      Phone Number <span style={{ color: "red" }}> * </span>
-                    </label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      id="exampleInputPassword1"
-                    />
-                  </div>
+                <div className="card-body">
+                  <ul className="nav nav-tabs">
+                    <li className="nav-item">
+                      <a
+                        onClick={() => changeIsVisible(true)}
+                        className="nav-link"
+                        aria-current="page"
+                        href="#"
+                      >
+                        Login
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <a
+                        onClick={() => changeIsVisible(false)}
+                        className="nav-link"
+                        href="#"
+                      >
+                        Register
+                      </a>
+                    </li>
+                  </ul>
+                  <div
+                    className="loginForm my-4"
+                    style={{ display: isVisible ? "block" : "none" }}
+                  >
+                    <form autoComplete="off" onSubmit={handleSubmit}>
+                      <div className="mb-3">
+                        <label
+                          htmlFor="exampleInputEmail1"
+                          className="form-label"
+                        >
+                          Email Address{" "}
+                          <span style={{ color: "darkgreen" }}> * </span>
+                        </label>
+                        <input
+                          type="email"
+                          className="form-control"
+                          id="exampleInputEmail1"
+                          aria-describedby="emailHelp"
+                          onChange={handleChange}
+                          value={values.email}
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label
+                          htmlFor="exampleInputPassword1"
+                          className="form-label"
+                        >
+                          Password <span style={{ color: "red" }}> * </span>
+                        </label>
+                        <input
+                          type="password"
+                          className="form-control"
+                          id="exampleInputPassword1"
+                          onChange={handleChange}
+                          value={values.password}
+                        />
+                      </div>
 
-                  <button type="submit" className="btn btn-success">
-                    Login
-                  </button>
-                  <div className="form-text my-3">
-                    <span style={{ color: "darkgreen" }}>*</span> means the
-                    field is optional.
-                  </div>
-                  <div className="form-text">
-                    <span style={{ color: "red" }}>*</span> means the field is
-                    compulsory
-                  </div>
-                </form>
-              </div>
-              <div
-                className="register-form my-4"
-                style={{ display: !isVisible ? "block" : "none" }}
-              >
-                <form autoComplete="off">
-                  <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label">
-                      Email Address <span style={{ color: "red" }}> * </span>
-                    </label>
-                    <input
-                      type="email"
-                      className="form-control"
-                      id="exampleInputEmail1"
-                      aria-describedby="emailHelp"
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label
-                      htmlFor="exampleInputPassword1"
-                      className="form-label"
-                    >
-                      Password <span style={{ color: "red" }}> * </span>
-                    </label>
-                    <input
-                      type="password"
-                      className="form-control"
-                      id="exampleInputPassword1"
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label
-                      htmlFor="exampleInputPassword1"
-                      className="form-label"
-                    >
-                      Confirm Password <span style={{ color: "red" }}> * </span>
-                    </label>
-                    <input
-                      type="password"
-                      className="form-control"
-                      id="exampleInputPassword1"
-                    />
-                  </div>
+                      <div className="mb-3">
+                        <label
+                          htmlFor="exampleInputPassword1"
+                          className="form-label"
+                        >
+                          Phone Number <span style={{ color: "red" }}> * </span>
+                        </label>
+                        <input
+                          type="number"
+                          className="form-control"
+                          id="exampleInputPassword1"
+                        />
+                      </div>
 
-                  <div className="mb-3">
-                    <label
-                      htmlFor="exampleInputPassword1"
-                      className="form-label"
-                    >
-                      Phone Number <span style={{ color: "red" }}> * </span>
-                    </label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      id="exampleInputPassword1"
-                    />
+                      <button type="submit" className="btn btn-success">
+                        Login
+                      </button>
+                      <div className="form-text my-3">
+                        <span style={{ color: "darkgreen" }}>*</span> means the
+                        field is optional.
+                      </div>
+                      <div className="form-text">
+                        <span style={{ color: "red" }}>*</span> means the field
+                        is compulsory
+                      </div>
+                    </form>
                   </div>
+                  <div
+                    className="register-form my-4"
+                    style={{ display: !isVisible ? "block" : "none" }}
+                  >
+                    <form autoComplete="off" onSubmit={handleSubmit}>
+                      <div className="mb-3">
+                        <label
+                          htmlFor="exampleInputEmail1"
+                          className="form-label"
+                        >
+                          Email Address{" "}
+                          <span style={{ color: "red" }}> * </span>
+                        </label>
+                        <input
+                          type="email"
+                          className="form-control"
+                          id="exampleInputEmail1"
+                          aria-describedby="emailHelp"
+                          name="email"
+                          onChange={handleChange}
+                          value={values.email}
+                          onBlur={handleBlur}
+                        />
+                        <p className="error" style={{ color: "red" }}>
+                          {errors.email && touched.email && errors.email}
+                        </p>
+                      </div>
+                      <div className="mb-3">
+                        <label
+                          htmlFor="exampleInputPassword1"
+                          className="form-label"
+                        >
+                          Password <span style={{ color: "red" }}> * </span>
+                        </label>
+                        <input
+                          type="password"
+                          className="form-control"
+                          id="exampleInputPassword1"
+                          name="password"
+                          onChange={handleChange}
+                          value={values.password}
+                          onBlur={handleBlur}
+                        />
+                        <p className="error" style={{ color: "red" }}>
+                          {errors.password &&
+                            touched.password &&
+                            errors.password}
+                        </p>
+                      </div>
+                      <div className="mb-3">
+                        <label
+                          htmlFor="exampleInputPassword1"
+                          className="form-label"
+                        >
+                          Full Name <span style={{ color: "red" }}> * </span>
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="exampleInputPassword1"
+                          name="name"
+                          onChange={handleChange}
+                          value={values.name}
+                          onBlur={handleBlur}
+                        />
+                        <p className="error" style={{ color: "red" }}>
+                          {errors.name && touched.name && errors.name}
+                        </p>
+                      </div>
 
-                  <button type="submit" className="btn btn-success">
-                    Register
-                  </button>
-                  <div className="form-text my-4">
-                    <span style={{ color: "red" }}>*</span> means the field is
-                    compulsory.
+                      <div className="mb-3">
+                        <label
+                          htmlFor="exampleInputPassword1"
+                          className="form-label"
+                        >
+                          Phone Number <span style={{ color: "red" }}> * </span>
+                        </label>
+                        <input
+                          type="number"
+                          className="form-control"
+                          id="exampleInputPassword1"
+                          name="phoneNumber"
+                          onChange={handleChange}
+                          value={values.phoneNumber}
+                          onBlur={handleBlur}
+                        />
+
+                        <p className="error" style={{ color: "red" }}>
+                          {errors.phoneNumber && touched.phoneNumber && errors.phoneNumber}
+                        </p>
+                      </div>
+
+                      <button type="submit" className="btn btn-success">
+                        Register
+                      </button>
+                      <div className="form-text my-4">
+                        <span style={{ color: "red" }}>*</span> means the field
+                        is compulsory.
+                      </div>
+                    </form>
                   </div>
-                </form>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-      <footer>
-        <div class="card-footer text-body-secondary page-footer">
-          <p className="mx-5 py-2"> Copyright © ChittoPay. All rights reserved</p>
-        </div>
-      </footer>
+          </section>
+        )}
+      </Formik>
+
+      <Footer />
     </>
   );
 }

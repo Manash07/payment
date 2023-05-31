@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import {Formik} from "formik"
+import * as Yup from "yup"
 
 const Register = (props) => {
    
@@ -10,6 +12,18 @@ className="register-form my-4"
 style={{ display: !props.isVisible ? "block" : "none" }}
 >
 <form>
+
+<div className="mb-3">
+    <label htmlFor="exampleInputEmail1" className="form-label">
+      Full Name <span style={{ color: "red" }}> * </span>
+    </label>
+    <input
+      type="text"
+      className="form-control"
+      id="exampleInputEmail1"
+      aria-describedby="emailHelp"
+    />
+  </div>
   <div className="mb-3">
     <label htmlFor="exampleInputEmail1" className="form-label">
       Email Address <span style={{ color: "red" }}> * </span>
