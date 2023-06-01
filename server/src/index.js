@@ -16,6 +16,6 @@ console.log("Now you are connected to database");
 
 app.use('/',userRoute)
 
-app.listen(process.env.port, () => {
-  console.log(`Example app listening on port ${process.env.port}`);
+app.listen(8080, () => {
+  console.log(`Example app listening on port 8080`);
 });

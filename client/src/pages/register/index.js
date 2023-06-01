@@ -27,8 +27,36 @@ const schema = Yup.object().shape({
     ),
 });
 
-export default function Mockhome() {
+export default function Register() {
   const [isVisible, changeIsVisible] = useState(true);
+
+  const handleRegister = async (values, resetForm) => {
+    debugger;
+    try {
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      };
+      const res = await fetch("http://localhost:8080/register", requestOptions);
+
+     
+
+      const data = await res.json();
+
+      if (res.status == 200 && data) {
+      
+        console.log(data);
+        alert("Registered successfully");
+        resetForm();
+      }
+    } catch (err) {
+      
+      console.log(err);
+      alert("Problem while registering");
+    }
+  };
+
   return (
     <>
       <Header />
@@ -40,11 +68,18 @@ export default function Mockhome() {
           email: "",
           phoneNumber: "",
         }}
-        onSubmit={(values) => {
-          return console.log("Status true", values);
+        onSubmit={(values, { resetForm }) => {
+          handleRegister(values, resetForm);
         }}
       >
-        {({ values, touched, handleChange, handleSubmit, errors, handleBlur}) => (
+        {({
+          values,
+          touched,
+          handleChange,
+          handleSubmit,
+          errors,
+          handleBlur,
+        }) => (
           <section className="user-portal">
             <div className="my-4 h-100 d-flex justify-content-center">
               <div
@@ -127,9 +162,9 @@ export default function Mockhome() {
                         />
                       </div>
 
-                      <button type="submit" className="btn btn-success">
+                      {/* <button type="submit" className="btn btn-success">
                         Login
-                      </button>
+                      </button> */}
                       <div className="form-text my-3">
                         <span style={{ color: "darkgreen" }}>*</span> means the
                         field is optional.
@@ -228,7 +263,9 @@ export default function Mockhome() {
                         />
 
                         <p className="error" style={{ color: "red" }}>
-                          {errors.phoneNumber && touched.phoneNumber && errors.phoneNumber}
+                          {errors.phoneNumber &&
+                            touched.phoneNumber &&
+                            errors.phoneNumber}
                         </p>
                       </div>
 
