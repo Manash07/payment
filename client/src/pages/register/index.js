@@ -3,7 +3,14 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-
+import { useDispatch } from "react-redux";
+import { setRegister } from "@/redux/reducerslice/userSlice";
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from "@chakra-ui/react";
 // Creating yup schema
 
 const schema = Yup.object().shape({
@@ -28,10 +35,13 @@ const schema = Yup.object().shape({
 });
 
 export default function Register() {
-  const [isVisible, changeIsVisible] = useState(true);
+  const dispatch = useDispatch();
+
+  const [isVisible, changeIsVisible] = useState(false);
+  const [successfulDisplay, setSuccessfulDisplay] = useState("none");
+  const [errorDisplay, setErrorDisplay] = useState("none");
 
   const handleRegister = async (values, resetForm) => {
-    debugger;
     try {
       const requestOptions = {
         method: "POST",
@@ -40,20 +50,26 @@ export default function Register() {
       };
       const res = await fetch("http://localhost:8080/register", requestOptions);
 
-     
-
       const data = await res.json();
 
       if (res.status == 200 && data) {
-      
         console.log(data);
-        alert("Registered successfully");
+        dispatch(setRegister(data));
+        setSuccessfulDisplay("flex");
+        setErrorDisplay("none");
         resetForm();
+     
+      }else{
+       
+        console.log("Error")
+
+
       }
     } catch (err) {
-      
       console.log(err);
-      alert("Problem while registering");
+      setErrorDisplay("flex");
+      setSuccessfulDisplay("none");
+    
     }
   };
 
@@ -81,6 +97,23 @@ export default function Register() {
           handleBlur,
         }) => (
           <section className="user-portal">
+            <Alert status="success" style={{ display: successfulDisplay }}>
+              <AlertIcon />
+              <AlertTitle>Registration Successful</AlertTitle>
+              <AlertDescription>
+                You have been successfully registered.You can login by clicking
+                Login button.
+              </AlertDescription>
+            </Alert>
+            <Alert status="error" style={{ display: errorDisplay }}>
+              <AlertIcon />
+              <AlertTitle>OOPS</AlertTitle>
+              <AlertDescription>
+                Looks like you are already registered. Try to login by clicking
+                Login button.
+              </AlertDescription>
+            </Alert>
+
             <div className="my-4 h-100 d-flex justify-content-center">
               <div
                 className="card main-card-login"
@@ -95,7 +128,7 @@ export default function Register() {
                         onClick={() => changeIsVisible(true)}
                         className="nav-link"
                         aria-current="page"
-                        href="#"
+                        href="../login"
                       >
                         Login
                       </a>
@@ -113,68 +146,7 @@ export default function Register() {
                   <div
                     className="loginForm my-4"
                     style={{ display: isVisible ? "block" : "none" }}
-                  >
-                    <form autoComplete="off" onSubmit={handleSubmit}>
-                      <div className="mb-3">
-                        <label
-                          htmlFor="exampleInputEmail1"
-                          className="form-label"
-                        >
-                          Email Address{" "}
-                          <span style={{ color: "darkgreen" }}> * </span>
-                        </label>
-                        <input
-                          type="email"
-                          className="form-control"
-                          id="exampleInputEmail1"
-                          aria-describedby="emailHelp"
-                          onChange={handleChange}
-                          value={values.email}
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label
-                          htmlFor="exampleInputPassword1"
-                          className="form-label"
-                        >
-                          Password <span style={{ color: "red" }}> * </span>
-                        </label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          id="exampleInputPassword1"
-                          onChange={handleChange}
-                          value={values.password}
-                        />
-                      </div>
-
-                      <div className="mb-3">
-                        <label
-                          htmlFor="exampleInputPassword1"
-                          className="form-label"
-                        >
-                          Phone Number <span style={{ color: "red" }}> * </span>
-                        </label>
-                        <input
-                          type="number"
-                          className="form-control"
-                          id="exampleInputPassword1"
-                        />
-                      </div>
-
-                      {/* <button type="submit" className="btn btn-success">
-                        Login
-                      </button> */}
-                      <div className="form-text my-3">
-                        <span style={{ color: "darkgreen" }}>*</span> means the
-                        field is optional.
-                      </div>
-                      <div className="form-text">
-                        <span style={{ color: "red" }}>*</span> means the field
-                        is compulsory
-                      </div>
-                    </form>
-                  </div>
+                  ></div>
                   <div
                     className="register-form my-4"
                     style={{ display: !isVisible ? "block" : "none" }}
