@@ -11,8 +11,7 @@ import { useRouter } from "next/router";
 // Creating yup schema
 
 const schema = Yup.object().shape({
-  email: Yup.string().email().default("email"),
-
+ 
   phoneNumber: Yup.string()
     .min(10, "Phone number should not be less than 10 numbers")
     .max(10, "Phone number should not exceeds 10 numbers")
@@ -20,19 +19,15 @@ const schema = Yup.object().shape({
 
   password: Yup.string()
     .required("Required")
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
-    ),
 });
 
-export default function Register() {
-
+export default function Login() {
   const dispatch = useDispatch();
   const router = useRouter();
   const [isVisible, changeIsVisible] = useState(true);
 
-  const handleRegister = async (values, resetForm) => {
+  const handleLogin = async (values, resetForm) => { 
+
     try {
       const requestOptions = {
         method: "POST",
@@ -41,22 +36,27 @@ export default function Register() {
       };
       const res = await fetch("http://localhost:8080/login", requestOptions);
       const data = await res.json();
-      if (res.status == 200 && data.isLoggedIn) {
+      if (res.status == 200) {
         console.log(data);
         alert("Login successfully");
-        dispatch(setLogin(data))
-        resetForm();
-        
-        router.push('/')
-        
-      }
-      else{
+        dispatch(setLogin(data));
+        // resetForm();
+        res.json({
 
-        console.log("Some problem with the data")
+          msg:"Successful"
+        })
+
+       
+      } else {
+        console.log("Some problem with the data");
+        res.json({
+
+          msg:"Internal error"
+        })
       }
     } catch (err) {
       console.log(err);
-      alert("Problem while login");
+      alert("Problem while login")
     }
   };
 
@@ -66,11 +66,11 @@ export default function Register() {
       <Formik
         validationSchema={schema}
         initialValues={{
-          password: "",
-          phoneNumber: "",
+          password: '',
+          phoneNumber: '',
         }}
         onSubmit={(values, { resetForm }) => {
-          handleRegister(values, resetForm);
+          handleLogin(values, resetForm);
         }}
       >
         {({
@@ -119,7 +119,7 @@ export default function Register() {
                     className="register-form my-4"
                     style={{ display: isVisible ? "block" : "none" }}
                   >
-                    <form autoComplete="off" onSubmit={handleSubmit}>
+                    <form noValidate autoComplete="off" onSubmit={handleSubmit}>
                       <div className="mb-3">
                         <label
                           htmlFor="exampleInputPassword1"
