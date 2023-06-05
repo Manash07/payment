@@ -27,32 +27,25 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  try {
-    const data = await Users.find({ phoneNumber: req.body.phoneNumber});
+  try{
 
+    const data = await Users.find({phoneNumber: req.body.phoneNumber});
     if (data) {
-      const isMatched = await bcrypt.compare(req.body.password, data.password);
-      if (isMatched) {
-        req.json({
-          msg: "Login Successful",
-          token: token,
-          id: data.id,
-        });
+      const isMatched = await bcrypt.compare(req.body.password, data[0].password);
+      if (data.length != 0 && isMatched) {
+        res.sendStatus(200);
       } else {
-        res.json({
-          msg: "Internal error problem",
-        });
+        res.sendStatus(209);
       }
-    } else {
-      res.sendStatus(404)
-      res.json({
-        msg: "Could not find one",
-        
-      });
     }
-  } catch {
-    console.log("Catch error");
+
   }
+  catch(error){
+
+    res.sendStatus(404)
+
+  }
+
 };
 
 module.exports = { register, login };

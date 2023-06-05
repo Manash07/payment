@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Header from "@/components/header";
@@ -7,56 +7,92 @@ import Link from "next/link";
 import { setLogin } from "@/redux/reducerslice/userSlice";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
+import { useToast } from "@chakra-ui/react";
 
 // Creating yup schema
 
 const schema = Yup.object().shape({
- 
   phoneNumber: Yup.string()
     .min(10, "Phone number should not be less than 10 numbers")
     .max(10, "Phone number should not exceeds 10 numbers")
     .required("Required"),
 
-  password: Yup.string()
-    .required("Required")
+  password: Yup.string().required("Required"),
 });
 
 export default function Login() {
   const dispatch = useDispatch();
   const router = useRouter();
   const [isVisible, changeIsVisible] = useState(true);
+  const toast = useToast();
 
-  const handleLogin = async (values, resetForm) => { 
-
+  const handleLogin = async (values, resetForm) => {
     try {
+      debugger;
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       };
       const res = await fetch("http://localhost:8080/login", requestOptions);
-      const data = await res.json();
-      if (res.status == 200) {
-        console.log(data);
-        alert("Login successfully");
-        dispatch(setLogin(data));
-        // resetForm();
-        res.json({
 
-          msg:"Successful"
-        })
+      if (res.status == 200) {
+        toast({
+          title: "Login successfully",
+          description: "Please wait.......",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+
+        setTimeout(() => {
+          router.push("/");
+        }, 3000);
 
        
-      } else {
-        console.log("Some problem with the data");
-        res.json({
 
-          msg:"Internal error"
-        })
+
+      }else if (res.status == 209){
+
+        toast({
+          title: "Problem with credential",
+          description: "Please try again later",
+          status: "warning",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+      
+      
+      else if (res.status == 404) {
+       
+        toast({
+          title: "There was problem logging you in ",
+          description: "Could not found you",
+          status: "warning",
+          duration: 3000,
+          isClosable: true,
+        });
+
+
+      } else {
+        toast({
+          title: "Could not log you in",
+          description: "Please try again",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
       }
     } catch (err) {
       console.log(err);
-      alert("Problem while login")
+      toast({
+        title: "Connection Problem",
+        description: "Please try again",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 
@@ -66,8 +102,8 @@ export default function Login() {
       <Formik
         validationSchema={schema}
         initialValues={{
-          password: '',
-          phoneNumber: '',
+          password: "",
+          phoneNumber: "",
         }}
         onSubmit={(values, { resetForm }) => {
           handleLogin(values, resetForm);
