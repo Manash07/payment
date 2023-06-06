@@ -29,12 +29,21 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try{
 
-    const data = await Users.find({phoneNumber: req.body.phoneNumber});
+    const data = await Users.findOne({phoneNumber: req.body.phoneNumber});
+  
     if (data) {
-      const isMatched = await bcrypt.compare(req.body.password, data[0].password);
+      const isMatched = await bcrypt.compare(req.body.password, data.password);
+      const token = jwt.sign({foo: 'bear'}, process.env.SECRET_KEY)
+      console.log(token)
+    
+      console.log(isMatched)
       if (data.length != 0 && isMatched) {
         res.sendStatus(200);
-      } else {
+      
+    
+      }
+      
+      else {
         res.sendStatus(209);
       }
     }
@@ -43,7 +52,6 @@ const login = async (req, res) => {
   catch(error){
 
     res.sendStatus(404)
-
   }
 
 };

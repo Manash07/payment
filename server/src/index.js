@@ -3,8 +3,12 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
 app.use(cors());
-require("dotenv").config(); // Used to run process.env command
+const dotenv = require("dotenv"); // Used to run process.env command
 const userRoute = require('./route/userRoute')
+dotenv.config({
+  path: '/home/manash/Desktop/codeFile/Chittopay/server/.env'
+});
+
 
 const connectToDb = require("./connection/dbconnect");
 const userSchema = require("./model/users");
@@ -16,6 +20,10 @@ console.log("Now you are connected to database");
 
 app.use('/',userRoute)
 
-app.listen(8080, () => {
-  console.log(`Example app listening on port 8080`);
+app.listen(process.env.PORT, () => {
+
+  console.log(`Server is listening on port`,process.env.PORT);
 });
+
+
+

@@ -52,11 +52,11 @@ export default function Login() {
        
 
 
-      }else if (res.status == 209){
+      }else if (res.status == 209 ){
 
         toast({
           title: "Problem with credential",
-          description: "Please try again later",
+          description: "Please try again",
           status: "warning",
           duration: 3000,
           isClosable: true,
@@ -78,7 +78,7 @@ export default function Login() {
       } else {
         toast({
           title: "Could not log you in",
-          description: "Please try again",
+          description: "Please try again later",
           status: "error",
           duration: 3000,
           isClosable: true,
