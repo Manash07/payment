@@ -1,9 +1,13 @@
+"use client";
+
+import { useSelector } from "react-redux";
+import User from "./user";
+import Admin from "./admin";
 
 export default function Home() {
- 
-  return (
-    <>
-    <h3> This is main page </h3>
-    </>
-  );
+  const { token, role } = useSelector((state) => state.nameManash);
+
+  if (token && role == "user") return <User />;
+  return <Admin/>
+
 }

@@ -3,8 +3,6 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import { useDispatch } from "react-redux";
-import { setRegister } from "@/redux/reducerslice/userSlice";
 import {
   Alert,
   AlertIcon,
@@ -35,7 +33,7 @@ const schema = Yup.object().shape({
 });
 
 export default function Register() {
-  const dispatch = useDispatch();
+ 
 
   const [isVisible, changeIsVisible] = useState(false);
   const [successfulDisplay, setSuccessfulDisplay] = useState("none");
@@ -54,7 +52,6 @@ export default function Register() {
 
       if (res.status == 200 && data) {
         console.log(data);
-        dispatch(setRegister(data));
         setSuccessfulDisplay("flex");
         setErrorDisplay("none");
         resetForm();

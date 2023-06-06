@@ -27,33 +27,53 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  try{
+  try {
+    const data = await Users.findOne({ phoneNumber: req.body.phoneNumber });
 
-    const data = await Users.findOne({phoneNumber: req.body.phoneNumber});
-  
     if (data) {
       const isMatched = await bcrypt.compare(req.body.password, data.password);
-      const token = jwt.sign({foo: 'bear'}, process.env.SECRET_KEY)
-      console.log(token)
-    
-      console.log(isMatched)
-      if (data.length != 0 && isMatched) {
-        res.sendStatus(200);
-      
-    
+      const { password, ...allOtherItems } = req.body;
+      const token = jwt.sign(allOtherItems, process.env.SECRET_KEY, {
+        expiresIn: "12h",
+      });
+
+      console.log(token);
+
+      console.log(isMatched);
+      if (isMatched && token) {
+        res
+          .status(200)
+          .json({
+            message: "Login successful",
+            token: token,
+            isLoggedIn: true,
+            id: data._id,
+            role:data.role
+          });
+      } else {
+        res
+          .status(401)
+          .json({
+            message: "Login failed unauthorized access",
+            
+          });
       }
-      
-      else {
-        res.sendStatus(209);
-      }
+    } else {
+      res
+        .status(204)
+        .json({
+          message: "Login failed cannot found user",
+         
+        });
     }
-
+  } catch (error) {
+    res
+      .status(404)
+      .json({
+        message: "Server error",
+       
+      });
   }
-  catch(error){
-
-    res.sendStatus(404)
-  }
-
 };
 
 module.exports = { register, login };

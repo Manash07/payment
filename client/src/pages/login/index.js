@@ -28,15 +28,18 @@ export default function Login() {
 
   const handleLogin = async (values, resetForm) => {
     try {
-      debugger;
+      //debugger;
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       };
       const res = await fetch("http://localhost:8080/login", requestOptions);
+      const data = await res.json()
 
       if (res.status == 200) {
+
+        dispatch(setLogin(data))
         toast({
           title: "Login successfully",
           description: "Please wait.......",
@@ -48,12 +51,7 @@ export default function Login() {
         setTimeout(() => {
           router.push("/");
         }, 3000);
-
-       
-
-
-      }else if (res.status == 209 ){
-
+      } else if (res.status == 401) {
         toast({
           title: "Problem with credential",
           description: "Please try again",
@@ -61,25 +59,27 @@ export default function Login() {
           duration: 3000,
           isClosable: true,
         });
-      }
-      
-      
-      else if (res.status == 404) {
-       
+      } else if (res.status == 404) {
         toast({
           title: "There was problem logging you in ",
-          description: "Could not found you",
+          description: "Try again later",
           status: "warning",
           duration: 3000,
           isClosable: true,
         });
-
-
+      } else if (res.status == 204) {
+        toast({
+          title: "An unknown error occured ",
+          description: "Please try agin later",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
       } else {
         toast({
           title: "Could not log you in",
           description: "Please try again later",
-          status: "error",
+          status: "warning",
           duration: 3000,
           isClosable: true,
         });

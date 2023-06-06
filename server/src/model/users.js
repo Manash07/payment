@@ -3,7 +3,11 @@ const userSchema = new mongoose.Schema({
     name: String, 
     password: String,
     email: String,
-    phoneNumber: Number
+    phoneNumber: Number,
+    role: {
+      type: String,
+      default: "user",
+    },
   });
 
 
