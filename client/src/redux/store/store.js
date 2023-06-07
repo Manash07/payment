@@ -4,16 +4,26 @@ import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "@reduxjs/toolkit";
 import userSlice from "../reducerslice/userSlice";
 import logger from "redux-logger";
+import storageSession from 'reduxjs-toolkit-persist/lib/storage/session'
+import { persistReducer, persistStore } from 'redux-persist';
+
 
 const reducer = combineReducers({
 
     nameManash: userSlice,
 });
 
-const store = configureStore({
+const persistConfig = {
+    key: 'root',
+    storage: storageSession,
+  }
 
-    reducer,
+  const persistedReducer = persistReducer(persistConfig, reducer)
+
+export const store = configureStore({
+
+    reducer: persistedReducer,
     middleware:[logger]
 })
 
-export default store
+export const persistor = persistStore(store)

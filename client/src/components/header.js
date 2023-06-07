@@ -1,7 +1,5 @@
-import { useState } from "react";
-const Header = () => {
 
-  const [icolor, setColor] = useState("rgb(0, 176, 221)")
+const Header = () => {
 
   return (
     <>
@@ -28,27 +26,6 @@ const Header = () => {
           >
             <span className="navbar-toggler-icon" />
           </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <i class="bi bi-facebook mx-2" style={{color:icolor}}
-  
-                ></i>
-              </li>
-              <li className="nav-item">
-                <i class="bi bi-messenger mx-2"></i>
-              </li>
-              <li className="nav-item">
-                <i class="bi bi-instagram mx-2"></i>
-              </li>
-              <li className="nav-item">
-                <i class="bi bi-twitter mx-2"></i>
-              </li>
-              <li className="nav-item">
-                <i class="bi bi-linkedin mx-2"></i>
-              </li>
-            </ul>
-          </div>
         </div>
       </nav>
     </>

@@ -1,13 +1,18 @@
 import navlist from "@/data/secnavlist";
+import { Avatar, WrapItem } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
 
 const SecondaryHeader = () => {
+ 
+  const { name } = useSelector((state) => state.nameManash);
+
   return (
     <>
       <section className="header-two">
         <nav className="navbar navbar-expand-lg htwo">
           <div className="container-fluid">
-            {navlist.map((e,id) => (
-              <a className="navbar-brand" href="#" style={{fontSize:"15px"}}>
+            {navlist.map((e, id) => (
+              <a className="navbar-brand" href="/" style={{ fontSize: "15px" }}>
                 {e.link}
               </a>
             ))}
@@ -28,8 +33,7 @@ const SecondaryHeader = () => {
               id="navbarSupportedContent"
             >
               <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-               
-                <form className="d-flex" role="search">
+                <form className="d-flex mx-2" role="search">
                   <input
                     className="form-control me-2"
                     type="search"
@@ -37,6 +41,17 @@ const SecondaryHeader = () => {
                     aria-label="Search"
                   />
                 </form>
+
+                <a href="/login">
+                  <WrapItem>
+                    <Avatar
+                      name={name}
+                      size="sm"
+                      background="pink"
+                      color="black"
+                    />
+                  </WrapItem>
+                </a>
               </ul>
             </div>
           </div>

@@ -48,7 +48,9 @@ const login = async (req, res) => {
             token: token,
             isLoggedIn: true,
             id: data._id,
-            role:data.role
+            role:data.role,
+            name:data.name,
+
           });
       } else {
         res
