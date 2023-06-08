@@ -1,41 +1,36 @@
 import { useSelector } from "react-redux";
-import Header from "@/components/header";
 import SecondaryHeader from "@/components/secondarynavbar";
 import { useEffect } from "react";
-import { Avatar, WrapItem, AvatarBadge } from "@chakra-ui/react";
+import { Avatar, WrapItem, AvatarBadge, Badge } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useToast } from "@chakra-ui/react";
 
 const User = () => {
-  
   const { name, role } = useSelector((state) => state.nameManash);
   const router = useRouter();
   const toast = useToast();
 
   useEffect(() => {
-    if (role != 'user') {
-
-      toast({
-        title: "Connection Problem",
-        description: "Please try again",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-
+    if (role != "user") {
       setTimeout(() => {
+        toast({
+          title: "Connection Problem",
+          description: "Please try again",
+          status: "error",
+          duration: 1000,
+          isClosable: true,
+        });
         router.push("../login");
-      }, 3000);
+      }, 500);
     }
   }, [role]);
 
-    
-    return (
+  return (
     <>
       <SecondaryHeader />
 
       <section className="midsection mt-4 mx-4">
-        <div className="card" style={{ width: "12rem" }}>
+        <div className="card" style={{ width: "18rem" }}>
           <a className="mx-3 mt-4">
             <WrapItem>
               <Avatar
@@ -51,13 +46,22 @@ const User = () => {
           </a>
 
           <div className="card-body">
-            <h6 className="card-title">{name}</h6>
+            <h6 className="card-title mb-4">
+              Name: {""} {name}
+            </h6>
+            <h6 className="card-title mb-4">
+              KYC verification status:
+              <Badge className="mx-2" variant="solid" colorScheme="yellow">
+                Unknown
+              </Badge>
+
+            </h6>
+            <a href="/login" style={{fontSize:"20px", color:"red",}}> Logout </a>
           </div>
         </div>
       </section>
     </>
   );
 };
-
 
 export default User;

@@ -17,22 +17,10 @@ const navlist = [
   },
   {
     id: 5,
-    link: "Career",
-  },
-  {
-    id: 6,
-    link: "CP Shopping",
-  },
-  {
-    id: 7,
-    link: "Offers",
-  },
-  {
-    id: 8,
     link: "Claim Rewards",
   },
   {
-    id: 9,
+    id: 6,
     link: "Refer and Win",
   },
   

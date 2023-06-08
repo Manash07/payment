@@ -1,9 +1,9 @@
 import navlist from "@/data/secnavlist";
-import { Avatar, WrapItem } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
+import "bootstrap-icons/font/bootstrap-icons.css";
+
 
 const SecondaryHeader = () => {
- 
   const { name } = useSelector((state) => state.nameManash);
 
   return (
@@ -42,16 +42,9 @@ const SecondaryHeader = () => {
                   />
                 </form>
 
-                <a href="/login">
-                  <WrapItem>
-                    <Avatar
-                      name={name}
-                      size="sm"
-                      background="pink"
-                      color="black"
-                    />
-                  </WrapItem>
-                </a>
+                
+
+                
               </ul>
             </div>
           </div>
