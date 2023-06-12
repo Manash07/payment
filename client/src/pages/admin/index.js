@@ -38,7 +38,7 @@ const Admin = () => {
               <th scope="col">Password</th>
               <th scope="col">Status</th>
               <th scope="col">Email</th>
-              <th scope="col">Action</th>
+              <th scope="col"> Take Action</th>
             </tr>
           </thead>
           <tbody>

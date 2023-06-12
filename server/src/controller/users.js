@@ -9,7 +9,7 @@ const register = async (req, res) => {
     if (userExist.length == 0) {
       const hash = bcrypt.hashSync(req.body.password, 10);
       req.body.password = hash;
-      const data = await Users.create(req.body);
+      const data = await Users.create(req.body); // Here data is created in database
       if (data) {
         res.json({
           msg: "Registered Successfully",
@@ -41,41 +41,45 @@ const login = async (req, res) => {
 
       console.log(isMatched);
       if (isMatched && token) {
-        res
-          .status(200)
-          .json({
-            message: "Login successful",
-            token: token,
-            isLoggedIn: true,
-            id: data._id,
-            role:data.role,
-            name:data.name,
-
-          });
+        res.status(200).json({
+          message: "Login successful",
+          token: token,
+          isLoggedIn: true,
+          id: data._id,
+          role: data.role,
+          name: data.name,
+        });
       } else {
-        res
-          .status(401)
-          .json({
-            message: "Login failed unauthorized access",
-            
-          });
+        res.status(401).json({
+          message: "Login failed unauthorized access",
+        });
       }
     } else {
-      res
-        .status(204)
-        .json({
-          message: "Login failed cannot found user",
-         
-        });
+      res.status(204).json({
+        message: "Login failed cannot found user",
+      });
     }
   } catch (error) {
-    res
-      .status(404)
-      .json({
-        message: "Server error",
-       
-      });
+    res.status(404).json({
+      message: "Server error",
+    });
   }
 };
 
-module.exports = { register, login };
+const kycDetails = async(req, res) =>{
+
+
+  try{
+
+    console.log("Hello KYC detail")
+
+
+  }catch(err){
+
+    console.log(err)
+  }
+
+
+}
+
+module.exports = { register, login, kycDetails };

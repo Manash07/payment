@@ -1,10 +1,12 @@
 import navlist from "@/data/secnavlist";
 import { useSelector } from "react-redux";
 import "bootstrap-icons/font/bootstrap-icons.css";
-
+import { setLogout } from "@/redux/reducerslice/userSlice";
+import { useDispatch } from "react-redux";
 
 const SecondaryHeader = () => {
   const { name } = useSelector((state) => state.nameManash);
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -41,10 +43,6 @@ const SecondaryHeader = () => {
                     aria-label="Search"
                   />
                 </form>
-
-                
-
-                
               </ul>
             </div>
           </div>

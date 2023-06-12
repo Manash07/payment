@@ -99,9 +99,7 @@ input[type="date"]:hover {
   color: rgb(2, 84, 2) !important;
 }
 
-h6 {
-  color: green;
-}
+
 
 i:hover {
   cursor: pointer;
@@ -110,4 +108,20 @@ i:hover {
 .bi-power:hover {
   cursor: pointer;
   color: rgb(0, 221, 255) !important;
+}
+
+
+select{
+
+  width: 25rem !important;
+  margin-left: 15px !important;
+  border: 2px solid #11959d !important;
+  cursor: pointer;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.form-label{
+
+  color: #11959d;
 }

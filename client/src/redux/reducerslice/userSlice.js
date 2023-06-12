@@ -23,8 +23,14 @@ const userSlice = createSlice({
         ...userData,
       };
     },
+
+    setLogout:  (state, actions) => {
+      return {
+        ...initialState
+      }
+    },
   },
 });
 
-export const { setLogin } = userSlice.actions;
+export const { setLogin, setLogout } = userSlice.actions;
 export default userSlice.reducer;
