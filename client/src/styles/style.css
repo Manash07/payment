@@ -92,14 +92,19 @@ input[type="date"]:hover {
 }
 
 .htwo a:hover {
-  color: rgb(243, 242, 242) !important;
+  color: rgb(237, 239, 238) !important;
 }
 
 .bi-arrow-right-square-fill {
   color: rgb(2, 84, 2) !important;
 }
 
+.btnopt{
 
+  background: none !important;
+
+
+}
 
 i:hover {
   cursor: pointer;
@@ -110,18 +115,23 @@ i:hover {
   color: rgb(0, 221, 255) !important;
 }
 
-
-select{
-
-  width: 25rem !important;
-  margin-left: 15px !important;
-  border: 2px solid #11959d !important;
+select {
+  
+  margin-left: 0.1rem !important;
+  border: 1px solid #acacac !important;
   cursor: pointer;
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
 
-.form-label{
-
+.form-label {
   color: #11959d;
+}
+
+.bi-bell-fill {
+  color: #ffffff;
+}
+
+.bi-bell-fill:hover {
+  color: rgb(231, 231, 231);
 }

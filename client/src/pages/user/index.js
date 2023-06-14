@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 import { useRouter } from "next/router";
 import { useToast } from "@chakra-ui/react";
-import KYC from "@/components/kycform";
+import KYC from "@/components/formComponents/kycform";
 
 const User = () => {
   const {role } = useSelector((state) => state.nameManash);
@@ -29,6 +29,7 @@ const User = () => {
   return (
     <>
       <SecondaryHeader />
+     
       <KYC />
     </>
   );

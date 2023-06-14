@@ -1,35 +1,78 @@
-const banklist = [
-  {
-    id: 1,
-    name: "Nepal Investment Mega Bank",
-    branch: [
-      { city: "Lalitpur", name: "Jawlakhel Branch" },
-      { city: "Kathmandu", name: "Newroad Branch" },
-      { city: "Kathmandu", name: "Chahbahil Branch" },
-      { city: "Lalitpur", name: "Bhaisepati Branch" },
-      { city: "Kathmandu", name: "Jamal Branch" },
-      { city: "Kathmandu", name: "Durbarmarga Branch" },
-      { city: "Lalitpur", name: "Kumaripati Branch" },
-      { city: "Kathmandu", name: "Baneshwor Branch" },
-      { city: "Kathmandu", name: "Pepsicola Branch" }
-    ]
-  },
-  {
-    id: 2,
-    name: "Nepal Bank Limited",
-    branch: [
-      { city: "Lalitpur", name: "Jawlakhel Branch" },
-      { city: "Kathmandu", name: "Newroad Branch" },
-      { city: "Kathmandu", name: "Chahbahil Branch" },
-      { city: "Pokhara", name: "Newroad Branch" },
-      { city: "Biratnagar", name: "Main Road Branch" },
-      { city: "Kathmandu", name: "Tarakeshwor Branch" },
-      { city: "Chitwan", name: "Chitwan-Hetauda Branch" },
-      { city: "Butuwal", name: "Tilaurakot Branch" },
-      { city: "Janakpur", name: "Bajrang Chowk Branch" },
-      { city: "Kathmandu", name: "Pepsicola Branch" }
-    ]
-  }
+const bankName= [
+  { value: "NIMB", label: "Nepal Investment Mega Bank" },
+  { value: "NMB", label: "NMB Bank Limited" },
+  { value: "NBL", label: "Nepal Bank Limited" },
+  { value: "RBB", label: "Rastriya Banijya Bank" },
+  { value: "KBL", label: "Kumari Bank Limited" },
+  { value: "GIBL", label: "Global IME Bank Limited" },
+  { value: "KSBL", label: "Kamana Sewa Bank Limited" },
+  { value: "SIBL", label: "Siddhartha Bank Limited" },
+  { value: "SBI", label: "State Bank of India" },
+  { value: "ADBL", label: "Agriculture Development Bank Limited" },
+  { value: "SABL", label: "Sanima Bank Limited" },
+  { value: "MNBL", label: "Muktinath Bikash Bank Limited" },
+  { value: "MBL", label: "Machhapuchre Bank Limited" },
+  { value: "PBL", label: "Prime Bank Limited" },
+  { value: "NABIL", label: "Nabil Bank Limited" },
+  { value: "SUBL", label: "Sunrise Bank Limited" },
+  { value: "EBL", label: "Everest Bank Limited" },
+  { value: "SCB", label: "Standard Chartered Bank" },
 ];
 
-export default banklist;
+const district = [
+  { value: "Ktm", label: "Kathmandu" },
+  { value: "Ltpr", label: "Lalitpur" },
+  { value: "Btwl", label: "Butwal" },
+  { value: "Brt", label: "Biratnagar" },
+  { value: "Bhr", label: "Bhairawaha" },
+  { value: "Pal", label: "Palpa" },
+  { value: "Pkr", label: "Pokhara" },
+  { value: "Bdr", label: "Birendranagar" },
+  { value: "Bkt", label: "Bhaktapur" },
+  { value: "It", label: "Itahari" },
+  { value: "Dm", label: "Damak" },
+  { value: "Lhn", label: "Lahan" },
+  { value: "Nplj", label: "Nepalgunj" },
+  { value: "Mahdr", label: "Mahendranagar" },
+  { value: "Gok", label: "Gorkha" },
+];
+
+const branches = [
+  { value: "Ktm", label: "Lamachaur" },
+  { value: "Ktm", label: "Chabahail" },
+  { value: "Ktm", label: "New Baneshor" },
+  { value: "Ktm", label: "Tinkune" },
+  { value: "Ktm", label: "Balaju" },
+  { value: "Ktm", label: "Kalanki" },
+  { value: "Ktm", label: "Balkhu" },
+  { value: "Ktm", label: "Newroad, Kathmandu" },
+  { value: "Ktm", label: "Teku" },
+  { value: "Ktm", label: "Maharajgunj" },
+  { value: "Ltpr", label: "Jawlakhel" },
+  { value: "Ltpr", label: "Kumaripati" },
+  { value: "Ltpr", label: "Imadole" },
+  { value: "Bkt", label: "Jagati" },
+  { value: "Bkt", label: "Sanothimi" },
+  { value: "Bkt", label: "Gatthaghar" },
+  { value: "Btwl", label: "Main road" },
+  { value: "Btwl", label: "Taulihawa" },
+  { value: "Bhr", label: "Airport Road" },
+  { value: "Brt", label: "Mainroad" },
+  { value: "Brt", label: "Bargachhi" },
+  { value: "Brt", label: "Rani Custom Office" },
+  { value: "Pal", label: "Tansen" },
+  { value: "Pkr", label: "Pokhara Buspark" },
+  { value: "Pkr", label: "Newroad, Pokhara" },
+  { value: "Bdr", label: "Birendranagar" },
+  { value: "It", label: "Kanchhi Chowk" },
+  { value: "Dm", label: "Damak Buspark" },
+  { value: "Lhn", label: "Lahan Eye Hospital" },
+  { value: "Nplj", label: "Nepalgunj Buspark" },
+  { value: "Mahdr", label: "Laljhandi" },
+  { value: "Mahdr", label: "Bhimdutta" },
+  { value: "Gok", label: "Gorkha Buspark" },
+  { value: "Gok", label: "LigLigey" },
+];
+export default bankName;
+
+export { district, branches };
