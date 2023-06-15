@@ -99,11 +99,8 @@ input[type="date"]:hover {
   color: rgb(2, 84, 2) !important;
 }
 
-.btnopt{
-
+.btnopt {
   background: none !important;
-
-
 }
 
 i:hover {
@@ -116,7 +113,6 @@ i:hover {
 }
 
 select {
-  
   margin-left: 0.1rem !important;
   border: 1px solid #acacac !important;
   cursor: pointer;
@@ -134,4 +130,27 @@ select {
 
 .bi-bell-fill:hover {
   color: rgb(231, 231, 231);
+}
+
+
+.midsection{
+
+  margin: 0;
+  padding: 0;
+ float: left;
+}
+.main{
+
+  width: 100%;
+  margin: 0;
+  padding: 2px;
+
+}
+.midsection{
+
+  width: 100%;
+}
+.card-container{
+
+  width: 100%;
 }
