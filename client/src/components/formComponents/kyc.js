@@ -17,6 +17,8 @@ import {
 import React from "react";
 
 import { useRouter } from "next/navigation";
+import { setForm } from "@/redux/reducerslice/kycSlice";
+import { useDispatch } from "react-redux";
 
 const schema = Yup.object().shape({
   fullName: Yup.string().min(5, "Name must be minimum 5 letters"),
@@ -34,7 +36,9 @@ const schema = Yup.object().shape({
 
 const KYC = () => {
 
-  const router = useRouter()
+  const router = useRouter();
+  const dispatch = useDispatch();
+
   const steps = [
     { title: "Personal Info" },
     { title: "Bank Info" },
@@ -55,7 +59,7 @@ const KYC = () => {
 
       if (res.status == 200 && data) {
         console.log(data);
-        resetForm()
+        dispatch(setForm(data))
         router.push('/')
       }
     } catch (err) {

@@ -8,7 +8,7 @@ const kycSchema = new mongoose.Schema({
   documentType: {type: String, default:"N/A"},
   documentNumber: {type: String, default:"N/A"},
   documentIssuedOffice: {type: String, default:"N/A"},
-  status:{type:String, default:"PENDING"}
+  status:{type:String, default:"SUBMITTED"}
 })
 
 module.exports = mongoose.model("Kycform", kycSchema)
