@@ -1,6 +1,4 @@
-
 const Header = () => {
-
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">

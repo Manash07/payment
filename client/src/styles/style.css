@@ -154,3 +154,25 @@ select {
 
   width: 100%;
 }
+
+.home{
+
+
+  background: #F5F7FD;
+  padding: 20px;
+}
+
+.list-group li {
+
+  font-weight: bold !important;
+  color: #5f5b5b;
+ 
+}
+
+.list-group li:hover {
+
+  font-weight: bold !important;
+  color: #ffffff;
+  cursor: pointer;
+  background-color: #11959d;
+}

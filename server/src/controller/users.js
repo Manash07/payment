@@ -66,20 +66,6 @@ const login = async (req, res) => {
   }
 };
 
-const kycDetails = async(req, res) =>{
 
 
-  try{
-
-    console.log("Hello KYC detail")
-
-
-  }catch(err){
-
-    console.log(err)
-  }
-
-
-}
-
-module.exports = { register, login, kycDetails };
+module.exports = { register, login };

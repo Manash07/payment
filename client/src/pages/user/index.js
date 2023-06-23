@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 import { useRouter } from "next/router";
 import { useToast } from "@chakra-ui/react";
-import Home from "@/components/formComponents/home";
+import Home from "./home";
 
 const User = () => {
   const {role } = useSelector((state) => state.nameManash);
@@ -29,10 +29,34 @@ const User = () => {
   return (
     <>
       <SecondaryHeader />
-     
       <Home />
     </>
   );
 };
 
 export default User;
+
+
+// import Link from 'next/link';
+
+// const items = [
+//   { id: 1, name: 'Item 1' },
+//   { id: 2, name: 'Item 2' },
+//   { id: 3, name: 'Item 3' },
+// ];
+
+// const ItemsList = () => {
+//   return (
+//     <ul>
+//       {items.map(item => (
+//         <li key={item.id}>
+//           <Link href={`/items/${item.id}`}>
+//             <a>{item.name}</a>
+//           </Link>
+//         </li>
+//       ))}
+//     </ul>
+//   );
+// };
+
+// export default ItemsList;

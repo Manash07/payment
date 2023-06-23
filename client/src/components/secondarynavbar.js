@@ -91,7 +91,7 @@ const handleChange = () => {
                         color="black"
                         borderColor="black"
                       >
-                        <AvatarBadge boxSize="1em" bg="red.500" />
+                        <AvatarBadge boxSize="1em" bg="#0B9E00" />
                       </Avatar>
                     </WrapItem>
                   </MenuButton>
