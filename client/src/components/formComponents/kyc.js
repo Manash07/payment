@@ -12,14 +12,15 @@ import {
   StepTitle,
   Stepper,
   Box,
+  Select,
 } from "@chakra-ui/react";
 
 import React from "react";
-
+import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { setForm } from "@/redux/reducerslice/kycSlice";
 import { useDispatch } from "react-redux";
-
+import bankName from "@/data/banklist";
 const schema = Yup.object().shape({
   fullName: Yup.string().min(5, "Name must be minimum 5 letters"),
   bankName: Yup.string().min(3, "Bank ame must be minimum 5 letters"),
@@ -35,9 +36,9 @@ const schema = Yup.object().shape({
 });
 
 const KYC = () => {
-
   const router = useRouter();
   const dispatch = useDispatch();
+  const toast = useToast();
 
   const steps = [
     { title: "Personal Info" },
@@ -58,9 +59,27 @@ const KYC = () => {
       const data = await res.json();
 
       if (res.status == 200 && data) {
-        console.log(data);
-        dispatch(setForm(data))
-        router.push('/')
+        dispatch(setForm(data));
+        resetForm();
+        toast({
+          title: "Successfully submitted",
+          description: "Please wait.......",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+
+        setTimeout(() => {
+          router.push("/");
+        }, 3000);
+      } else {
+        toast({
+          title: "Could not submit",
+          description: "Phone number already exists",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
       }
     } catch (err) {
       console.log(err);
@@ -101,6 +120,23 @@ const KYC = () => {
         {({ values, handleChange, handleSubmit }) => (
           <section className="kyc-form">
             <form autoComplete="off" onSubmit={handleSubmit}>
+              <div className="mb-3 mt-3">
+                <label htmlFor="exampleInputEmail1" className="form-label">
+                  <span style={{ color: "blue" }}>
+                    {" "}
+                    Registered Mobile Number (required) *{" "}
+                  </span>
+                </label>
+                <input
+                  type="number"
+                  className="form-control name"
+                  aria-describedby="emailHelp"
+                  onChange={handleChange}
+                  value={values.phoneNumber}
+                  id="phoneNumber"
+                />
+              </div>
+
               <div className="mb-3 mt-3 fullName">
                 <label htmlFor="exampleInputEmail1" className="form-label">
                   Name in your official document

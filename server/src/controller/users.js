@@ -48,6 +48,7 @@ const login = async (req, res) => {
           id: data._id,
           role: data.role,
           name: data.name,
+          phoneNumber: data.phoneNumber,
         });
       } else {
         res.status(401).json({

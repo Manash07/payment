@@ -7,7 +7,8 @@ const initialState = {
   isLoggedIn: false,
   id: "",
   role:"",
-  name:""
+  name:"",
+  phoneNumber:""
 };
 
 const userSlice = createSlice({

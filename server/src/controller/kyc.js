@@ -3,14 +3,22 @@ const Kyc = require("../model/kyc");
 
 const form = async (req, res) => {
   try {
-    const getData = await Kyc.find({ status: req.body.status });
+    const getData = await Kyc.findOne({ phoneNumber: req.body.phoneNumber });
+    console.log(getData);
 
-    if (getData != 'SUBMITTED') {
+    if (getData) {
+      res.status(401).json({
+        msg: "Could not create",
+      });
+    }
+    
+    else {
       const data = await Kyc.create(req.body);
 
       if (data) {
         res.status(200).json({
           msg: "Form submission successful",
+          phoneNumber: data.phoneNumber,
           status: data.status,
           fullName: data.fullName,
           bankName: data.bankName,
@@ -20,22 +28,19 @@ const form = async (req, res) => {
           documentIssuedOffice: data.documentIssuedOffice,
           documentNumber: data.documentNumber,
           documentType: data.documentType,
-
         });
         res.json({
           msg: "Created successfully",
         });
       } else {
         res.json({
-          msg: "Could not create",
+          msg: "User exists already",
         });
       }
-    } else {
-      res.json({
-        msg: "User exists already",
-      });
     }
-  } catch (err) {}
+  } catch (err) {
+    console.log("Error")
+  }
 };
 
 module.exports = { form };
