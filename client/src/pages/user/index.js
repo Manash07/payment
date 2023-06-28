@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 import SecondaryHeader from "@/components/secondarynavbar";
 import { useEffect } from "react";
-
 import { useRouter } from "next/router";
 import { useToast } from "@chakra-ui/react";
 import Home from "./home";
+import Midsection from "./midsection";
 
 const User = () => {
   const {role } = useSelector((state) => state.nameManash);
@@ -30,6 +30,7 @@ const User = () => {
     <>
       <SecondaryHeader />
       <Home />
+      <Midsection/>
     </>
   );
 };

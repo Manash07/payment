@@ -25,7 +25,7 @@ const userSlice = createSlice({
       };
     },
 
-    setLogout:  (state, actions) => {
+    setLogout:  () => {
       return {
         ...initialState
       }
