@@ -10,9 +10,7 @@ const form = async (req, res) => {
       res.status(401).json({
         msg: "Could not create",
       });
-    }
-    
-    else {
+    } else {
       const data = await Kyc.create(req.body);
 
       if (data) {
@@ -39,8 +37,20 @@ const form = async (req, res) => {
       }
     }
   } catch (err) {
-    console.log("Error")
+    console.log("Error");
   }
 };
 
-module.exports = { form };
+const getKyc = async (req, res) => {
+  const data = await Kyc.findOne({ phoneNumber: req.body.phoneNumber});
+  if (data) {
+    res.json({
+      data,
+    });
+  } else {
+    res.status(404).json({
+      msg: "Could not find one",
+    });
+  }
+};
+module.exports = { form, getKyc };

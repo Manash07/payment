@@ -17,7 +17,7 @@ const Home = () => {
                     return (
                       <Link href={`/${e.page}`}>
                         <li className="list-group-item mb-2">
-                          <i class="bi bi-arrow-right-circle-fill"></i>{" "}
+                          <i class="bi bi-arrow-right-circle-fill" style={{marginRight:"10px"}}></i>{" "}
                           {e.title}
                         </li>
                       </Link>

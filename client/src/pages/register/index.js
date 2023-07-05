@@ -33,8 +33,6 @@ const schema = Yup.object().shape({
 });
 
 export default function Register() {
- 
-
   const [isVisible, changeIsVisible] = useState(false);
   const [successfulDisplay, setSuccessfulDisplay] = useState("none");
   const [errorDisplay, setErrorDisplay] = useState("none");
@@ -55,18 +53,13 @@ export default function Register() {
         setSuccessfulDisplay("flex");
         setErrorDisplay("none");
         resetForm();
-     
-      }else{
-       
-        console.log("Error")
-
-
+      } else {
+        console.log("Error");
       }
     } catch (err) {
       console.log(err);
       setErrorDisplay("flex");
       setSuccessfulDisplay("none");
-    
     }
   };
 
@@ -167,7 +160,7 @@ export default function Register() {
                           value={values.email}
                           onBlur={handleBlur}
                         />
-                        <p className="error" style={{ color: "red" }}>
+                        <p className="error mt-2" style={{ color: "red" }}>
                           {errors.email && touched.email && errors.email}
                         </p>
                       </div>

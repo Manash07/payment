@@ -1,3 +1,5 @@
+"use client";
+
 import navlist from "@/data/secnavlist";
 import { useSelector } from "react-redux";
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -5,6 +7,7 @@ import { setLogout } from "@/redux/reducerslice/userSlice";
 import { useDispatch } from "react-redux";
 import { useDisclosure } from "@chakra-ui/react";
 import { WrapItem, Avatar, AvatarBadge, Spinner } from "@chakra-ui/react";
+import { useState, useRef, useEffect } from "react";
 import {
   Menu,
   MenuButton,
@@ -12,8 +15,6 @@ import {
   MenuItem,
   MenuGroup,
   Button,
-  MenuOptionGroup,
-  MenuDivider,
 } from "@chakra-ui/react";
 
 import {
@@ -21,33 +22,44 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
-  ModalCloseButton,
 } from "@chakra-ui/react";
 
-const SecondaryHeader = () => {
+export default function SecondaryHeader({ data }) {
   const { name } = useSelector((state) => state.nameManash);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [openNot, setNot] = useState(false);
+
+  const clickRef = useRef();
+  console.log(openNot);
+
+  const notBar = () => {
+    openNot ? setNot(false) : setNot(true);
+    // console.log(openNot)
+  };
   const dispatch = useDispatch();
 
-//   <Button onClick={onOpen} className="btnopt">
-//   Trigger modal
-// </Button>
+  //   <Button onClick={onOpen} className="btnopt">
+  //   Trigger modal
+  // </Button>
 
-const handleChange = () => {
+  const handleChange = () => {
+    onOpen();
 
-  
-  onOpen()
+    setTimeout(() => {
+      dispatch(setLogout());
+    }, "2000");
+  };
 
- 
+  useEffect(() => {
+    document.addEventListener("click", handleClick, true);
+  }, []);
 
-  setTimeout(() => {
-    dispatch(setLogout())
-  }, "2000");
-
-}
-
+  const handleClick = (e) => {
+    if (clickRef?.current && !clickRef?.current?.contains(e.target)) {
+      setNot(false);
+    }
+  };
 
   return (
     <>
@@ -77,9 +89,9 @@ const handleChange = () => {
               id="navbarSupportedContent"
             >
               <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                <a>
+                <button onClick={notBar}>
                   <i class="bi bi-bell-fill" style={{ fontSize: "25px" }}></i>
-                </a>
+                </button>
 
                 <Menu className="logout">
                   <MenuButton>
@@ -91,7 +103,7 @@ const handleChange = () => {
                         color="black"
                         borderColor="black"
                       >
-                        <AvatarBadge boxSize="1em" bg="#0B9E00" />
+                        <AvatarBadge boxSize="1em" bg="green" />
                       </Avatar>
                     </WrapItem>
                   </MenuButton>
@@ -128,10 +140,7 @@ const handleChange = () => {
                             </ModalBody>
                           </ModalContent>
                         </Modal>
-                        <Button
-                          className="btnopt"
-                          onClick={handleChange}
-                        >
+                        <Button className="btnopt" onClick={handleChange}>
                           <i className="bi bi-box-arrow-right mx-2"></i>Logout
                         </Button>
                       </MenuItem>
@@ -151,9 +160,26 @@ const handleChange = () => {
             </div>
           </div>
         </nav>
+
+        <div
+          className="notbox"
+          style={{ display: openNot ? "block" : "none" }}
+          ref={clickRef}
+        >
+          <h5 className="mt-3 mx-5"> Notification Panel </h5>
+          {data && data.length > 0 ? (
+            data.map((e) => (
+              <div className="notification">
+                <p className="mx-2">{e.name}</p>
+              </div>
+            ))
+          ) : (
+            <p className="mx-3 mt-4 mb-2" style={{ color: "green" }}>
+              No notifications at the moment
+            </p>
+          )}
+        </div>
       </section>
     </>
   );
-};
-
-export default SecondaryHeader;
+}

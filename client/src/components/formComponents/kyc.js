@@ -1,34 +1,43 @@
 import { useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import {
-  Step,
-  StepDescription,
-  StepIcon,
-  StepIndicator,
-  StepNumber,
-  StepSeparator,
-  StepStatus,
-  StepTitle,
-  Stepper,
-  Box,
-  Select,
-} from "@chakra-ui/react";
-
 import React from "react";
 import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { setForm } from "@/redux/reducerslice/kycSlice";
-import { useDispatch } from "react-redux";
-import bankName from "@/data/banklist";
+import { useDispatch, useSelector } from "react-redux";
+
 const schema = Yup.object().shape({
-  fullName: Yup.string().min(5, "Name must be minimum 5 letters"),
-  bankName: Yup.string().min(3, "Bank ame must be minimum 5 letters"),
-  bankLocation: Yup.string().min(3, "Bank Location must be minimum 5 letters"),
-  bankBranch: Yup.string().min(3, "Bank branch must be minimum 5 letters"),
-  bankAccount: Yup.number().min(14, "Bank account must be minimum 14 number"),
-  documentType: Yup.string().min(3, "Document type must be minimum 3 letters"),
-  documentNumber: Yup.string().min(3, "Document number must be valid."),
+  fullName: Yup.string()
+    .min(5, "Full name must be more than 5 letters")
+    .max(20, "Full name must not exceeds 25 letters")
+    .required("Required"),
+  phoneNumber: Yup.string()
+    .min(10, "Phone number must be 10 numbers")
+    .max(10, "Phone number cannot exceed 10 numbers")
+    .required("Required"),
+  bankName: Yup.string()
+    .min(5, "Bank ame must be minimum 5 letters")
+    .max(20, "Bank name must not exceeds 25 letters")
+    .required("Required"),
+  bankLocation: Yup.string()
+    .min(5, "Bank Location must be minimum 5 letters")
+    .max(20, "Bank name must not exceeds 25 letters")
+    .required("Required"),
+  bankBranch: Yup.string()
+    .min(5, "Bank branch must be minimum 5 letters")
+    .required("Required"),
+  bankAccount: Yup.string()
+    .min(14, "Bank account must be minimum 14 number")
+    .max(14, "Bank account must not exceeds 14 number")
+    .required("Required"),
+  documentType: Yup.string()
+    .min(3, "Document type must be minimum 3 letters")
+    .max(20, "Document name must not exceeds 25 letters"),
+
+  documentNumber: Yup.string()
+    .min(3, "Document number must be valid.")
+    .required("Required"),
   documentIssuedOffice: Yup.string().min(
     3,
     "Document issued office must be minimum 3 letters"
@@ -40,11 +49,7 @@ const KYC = () => {
   const dispatch = useDispatch();
   const toast = useToast();
 
-  const steps = [
-    { title: "Personal Info" },
-    { title: "Bank Info" },
-    { title: "Upload documents" },
-  ];
+  const { status } = useSelector((state) => state.kycForm);
 
   const handleRegister = async (values, resetForm) => {
     try {
@@ -75,7 +80,7 @@ const KYC = () => {
       } else {
         toast({
           title: "Could not submit",
-          description: "Phone number already exists",
+          description: "Phone number already exists or wrong phone number.",
           status: "error",
           duration: 2000,
           isClosable: true,
@@ -88,7 +93,7 @@ const KYC = () => {
 
   return (
     <>
-      <Stepper index="0" className="mb-3 mt-3">
+      {/* <Stepper index="0" className="mb-3 mt-3">
         {steps.map((step, index) => (
           <Step key={index}>
             <StepIndicator>
@@ -107,124 +112,201 @@ const KYC = () => {
             <StepSeparator />
           </Step>
         ))}
-      </Stepper>
+      </Stepper> */}
 
       <Formik
         autoComplete="off"
         validationSchema={schema}
-        initialValues={{ name: "", password: "", email: "", phoneNumber: "" }}
+        initialValues={{
+          phoneNumber: "",
+          name: "",
+          documentType: "",
+          bankLocation: "",
+          bankBranch: "",
+        }}
         onSubmit={(values, { resetForm }) => {
           handleRegister(values, resetForm);
         }}
       >
-        {({ values, handleChange, handleSubmit }) => (
-          <section className="kyc-form">
+        {({
+          values,
+          handleChange,
+          handleSubmit,
+          touched,
+          errors,
+          handleBlur,
+        }) => (
+          <section className="kyc-form mb-3 mt-3">
             <form autoComplete="off" onSubmit={handleSubmit}>
-              <div className="mb-3 mt-3">
-                <label htmlFor="exampleInputEmail1" className="form-label">
-                  <span style={{ color: "blue" }}>
-                    {" "}
-                    Registered Mobile Number (required) *{" "}
-                  </span>
-                </label>
-                <input
-                  type="number"
-                  className="form-control name"
-                  aria-describedby="emailHelp"
-                  onChange={handleChange}
-                  value={values.phoneNumber}
-                  id="phoneNumber"
-                />
+              <div className="container-fluid">
+                <div className="row">
+                  <div className="col-md-4 col-lg-4 col-sm-12">
+                    <div className="mb-3 mt-3">
+                      <label
+                        htmlFor="exampleInputEmail1"
+                        className="form-label"
+                      >
+                        <span style={{ color: "blue" }}>
+                          {" "}
+                          Registered Mobile Number (required) *{" "}
+                        </span>
+                      </label>
+                      <input
+                        type="number"
+                        className="input-custom"
+                        onChange={handleChange}
+                        value={values.phoneNumber}
+                        id="phoneNumber"
+                        onBlur={handleBlur}
+                      />
+
+                      <p className="error" style={{ color: "red" }}>
+                        {errors.phoneNumber &&
+                          touched.phoneNumber &&
+                          errors.phoneNumber}
+                      </p>
+                    </div>
+
+                    <div className="mb-3 mt-3 fullName">
+                      <label
+                        htmlFor="exampleInputEmail1"
+                        className="form-label"
+                      >
+                        Name in your official document
+                      </label>
+                      <input
+                        type="text"
+                        className="input-custom"
+                        onChange={handleChange}
+                        value={values.fullName}
+                        id="fullName"
+                        onBlur={handleBlur}
+                      />
+
+                      <p className="error" style={{ color: "red" }}>
+                        {errors.fullName && touched.fullName && errors.fullName}
+                      </p>
+                    </div>
+
+                    <div className="mb-3 mt-3">
+                      <label
+                        htmlFor="exampleInputEmail1"
+                        className="form-label"
+                      >
+                        Document Number
+                      </label>
+                      <input
+                        type="text"
+                        className="input-custom"
+                        onChange={handleChange}
+                        value={values.documentNumber}
+                        id="documentNumber"
+                        onBlur={handleBlur}
+                      />
+                      <p className="error" style={{ color: "red" }}>
+                        {errors.documentNumber &&
+                          touched.documentNumber &&
+                          errors.documentNumber}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mx-5 px-5 col-md-4 col-lg-4 col-sm-12">
+                    <div classname="mb-3">
+                      <label
+                        htmlFor="exampleInputEmail1"
+                        className="form-label"
+                      >
+                        Bank Name
+                      </label>
+
+                      <input
+                        type="text"
+                        className="input-custom"
+                        onChange={handleChange}
+                        value={values.bankName}
+                        id="bankName"
+                        onBlur={handleBlur}
+                      />
+
+                      <p className="error" style={{ color: "red" }}>
+                        {errors.bankName && touched.bankName && errors.bankName}
+                      </p>
+                    </div>
+
+                    <div classname="mb-3 mt-4" style={{ marginTop: "3vh" }}>
+                      <label
+                        htmlFor="exampleInputEmail1"
+                        className="form-label"
+                      >
+                        Bank Location
+                      </label>
+                      <input
+                        type="text"
+                        className="input-custom"
+                        onChange={handleChange}
+                        value={values.bankLocation}
+                        id="bankLocation"
+                        onBlur={handleBlur}
+                      />
+
+                      <p className="error" style={{ color: "red" }}>
+                        {errors.bankLocation &&
+                          touched.bankLocation &&
+                          errors.bankLocation}
+                      </p>
+                    </div>
+
+                    <div classname="mb-3 mx-3" style={{ marginTop: "3vh" }}>
+                      <label
+                        htmlFor="exampleInputEmail1"
+                        className="form-label"
+                      >
+                        Bank Branch
+                      </label>
+                      <input
+                        type="text"
+                        className="input-custom"
+                        onChange={handleChange}
+                        value={values.bankBranch}
+                        id="bankBranch"
+                        onBlur={handleBlur}
+                      />
+
+                      <p className="error" style={{ color: "red" }}>
+                        {errors.bankBranch &&
+                          touched.bankBranch &&
+                          errors.bankBranch}
+                      </p>
+                    </div>
+
+                    <div className="mb-3 mt-3">
+                      <label
+                        htmlFor="exampleInputEmail1"
+                        className="form-label"
+                      >
+                        Bank Account Number
+                      </label>
+                      <input
+                        type="number"
+                        className="input-custom"
+                        onChange={handleChange}
+                        value={values.bankAccount}
+                        id="bankAccount"
+                        onBlur={handleBlur}
+                      />
+
+                      <p className="error" style={{ color: "red" }}>
+                        {errors.bankAccount &&
+                          touched.bankAccount &&
+                          errors.bankAccount}
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <div className="mb-3 mt-3 fullName">
-                <label htmlFor="exampleInputEmail1" className="form-label">
-                  Name in your official document
-                </label>
-                <input
-                  type="text"
-                  className="form-control name"
-                  aria-describedby="emailHelp"
-                  onChange={handleChange}
-                  value={values.fullName}
-                  id="fullName"
-                />
-              </div>
-
-              <div className="mb-3 mt-3">
-                <label htmlFor="exampleInputEmail1" className="form-label">
-                  Document Number
-                </label>
-                <input
-                  type="string"
-                  className="form-control "
-                  aria-describedby="emailHelp"
-                  onChange={handleChange}
-                  value={values.documentNumber}
-                  id="documentNumber"
-                />
-              </div>
-
-              <div classname="mb-4 mt-3">
-                <label htmlFor="exampleInputEmail1" className="form-label">
-                  Bank Name
-                </label>
-
-                <input
-                  type="string"
-                  className="form-control "
-                  aria-describedby="emailHelp"
-                  onChange={handleChange}
-                  value={values.bankName}
-                  id="bankName"
-                />
-              </div>
-
-              <div classname="mb-3 mt-4" style={{ marginTop: "3vh" }}>
-                <label htmlFor="exampleInputEmail1" className="form-label">
-                  Bank Location
-                </label>
-                <input
-                  type="string"
-                  className="form-control "
-                  aria-describedby="emailHelp"
-                  onChange={handleChange}
-                  placeholder="For example Kathmandu, Lalitpur, Bhaktapur, Biratnagar"
-                  value={values.bankLocation}
-                  id="bankLocation"
-                />
-              </div>
-
-              <div classname="mb-3 mx-3 mt-4" style={{ marginTop: "3vh" }}>
-                <label htmlFor="exampleInputEmail1" className="form-label">
-                  Bank Branch
-                </label>
-                <input
-                  type="string"
-                  className="form-control "
-                  aria-describedby="emailHelp"
-                  onChange={handleChange}
-                  placeholder="For example Baneshwor, Koteshwor, Thapathali, Kumaripati"
-                  value={values.bankBranch}
-                  id="bankBranch"
-                />
-              </div>
-
-              <div className="mb-3 mt-3">
-                <label htmlFor="exampleInputEmail1" className="form-label">
-                  Bank Account Number
-                </label>
-                <input
-                  type="number"
-                  className="form-control"
-                  aria-describedby="emailHelp"
-                  onChange={handleChange}
-                  value={values.bankAccount}
-                  id="bankAccount"
-                />
-              </div>
-
-              <button type="submit" className="btn btn-warning mx-1 mb-3">
+              <button type="submit" className="btn btn-success mx-3 mb-3">
                 Submit
               </button>
             </form>

@@ -1,34 +1,29 @@
-"use client";
-
-import { useEffect, useState } from "react";
-
 export async function getServerSideProps() {
   const url = "https://jsonplaceholder.typicode.com/users";
   const response = await fetch(url);
   const data = await response.json();
- 
 
   return {
     props: {
-     data
+      data,
     },
   };
 }
 
-export default function Home({data}) {
-
- 
-  const geoDetails = data.map((e) => e.address.geo);
-
+export default function Home({ data }) {
+  console.log(data);
   return (
     <>
-      {data.length > 0 && (
-        <>
-          {geoDetails?.map((e) => {
-            return <p>{e.lat}</p>;
-          })}
-        </>
-      )}
+      <div className="notbox">
+        <h5 className="mt-3 mx-5"> Notification Panel </h5>
+        {data && data.length > 0 ? (
+          data.map((e) => <p className="mx-4 mt-2">{e.name}</p>)
+        ) : (
+          <p className="mx-3 mt-4 mb-2" style={{ color: "green" }}>
+            No notifications at the moment
+          </p>
+        )}
+      </div>
     </>
   );
 }

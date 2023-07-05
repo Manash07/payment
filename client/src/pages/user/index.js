@@ -5,9 +5,22 @@ import { useRouter } from "next/router";
 import { useToast } from "@chakra-ui/react";
 import Home from "./home";
 import Midsection from "./midsection";
+import Footer from "@/components/footer";
 
-const User = () => {
-  const {role } = useSelector((state) => state.nameManash);
+export async function getServerSideProps() {
+  const url = "https://jsonplaceholder.typicode.com/users";
+  const response = await fetch(url);
+  const data = await response.json();
+
+  return {
+    props: {
+      data,
+    },
+  };
+}
+
+const User = ({ data }) => {
+  const { role } = useSelector((state) => state.nameManash);
   const router = useRouter();
   const toast = useToast();
 
@@ -28,15 +41,15 @@ const User = () => {
 
   return (
     <>
-      <SecondaryHeader />
+      <SecondaryHeader data={data} />
       <Home />
-      <Midsection/>
+      <Midsection />
+      <Footer/>
     </>
   );
 };
 
 export default User;
-
 
 // import Link from 'next/link';
 
