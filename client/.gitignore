@@ -37,4 +37,9 @@ next-env.d.ts
 
 
 /src/pages/mockform
+/src/pages/schema
+/src/pages/advanceForm
+/src/pages/basicForm
+
+
 
