@@ -1,4 +1,6 @@
 export async function getServerSideProps() {
+
+
   const url = "https://jsonplaceholder.typicode.com/users";
   const response = await fetch(url);
   const data = await response.json();
@@ -10,7 +12,7 @@ export async function getServerSideProps() {
   };
 }
 
-export default function Home({ data }) {
+export default function Notification({ data }) {
   console.log(data);
   return (
     <>

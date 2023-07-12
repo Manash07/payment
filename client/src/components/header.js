@@ -1,3 +1,5 @@
+import "bootstrap-icons/font/bootstrap-icons.css";
+
 const Header = () => {
   return (
     <>
@@ -22,7 +24,7 @@ const Header = () => {
                   href="#"
                   style={{ color: "white" }}
                 >
-                  Facebook
+                  <i className="bi bi-facebook"></i>
                 </a>
               </li>
 
@@ -33,7 +35,7 @@ const Header = () => {
                   href="#"
                   style={{ color: "white" }}
                 >
-                  Discord
+                  <i className="bi bi-discord"></i>
                 </a>
               </li>
 
@@ -44,7 +46,7 @@ const Header = () => {
                   href="#"
                   style={{ color: "white" }}
                 >
-                  Instagram
+                  <i className="bi bi-instagram"></i>
                 </a>
               </li>
 
@@ -55,7 +57,7 @@ const Header = () => {
                   href="#"
                   style={{ color: "white" }}
                 >
-                  Twitter
+                  <i className="bi bi-twitter"></i>
                 </a>
               </li>
 
@@ -66,7 +68,7 @@ const Header = () => {
                   href="#"
                   style={{ color: "white" }}
                 >
-                  Telegram
+                  <i className="bi bi-telegram"></i>
                 </a>
               </li>
             </ul>

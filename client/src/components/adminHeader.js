@@ -26,7 +26,7 @@ import {
   ModalBody,
 } from "@chakra-ui/react";
 
-export default function SecondaryHeader({ data }) {
+export default function AdminHeader({ data }) {
   const { name } = useSelector((state) => state.nameManash);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [openNot, setNot] = useState(false);
@@ -67,12 +67,7 @@ export default function SecondaryHeader({ data }) {
       <section className="header-two">
         <nav className="navbar navbar-expand-lg htwo">
           <div className="container-fluid">
-            {navlist.map((e, id) => (
-              <a className="navbar-brand" href="/" style={{ fontSize: "15px" }}>
-                {e.link}
-              </a>
-            ))}
-
+           <h3 className="mx-3 mt-2" style={{color:"white"}}> ADMIN PANEL </h3> 
             <button
               className="navbar-toggler"
               type="button"
@@ -90,9 +85,6 @@ export default function SecondaryHeader({ data }) {
               id="navbarSupportedContent"
             >
               <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                <button onClick={notBar}>
-                  <i class="bi bi-bell-fill" style={{ fontSize: "25px" }}></i>
-                </button>
 
                 <Menu className="logout">
                   <MenuButton>
@@ -161,25 +153,6 @@ export default function SecondaryHeader({ data }) {
             </div>
           </div>
         </nav>
-
-        <div
-          className="notbox"
-          style={{ display: openNot ? "block" : "none" }}
-          ref={clickRef}
-        >
-         <h5 className="mt-3 mx-5"> Notification Panel </h5>
-          {data && data.length > 0 ? (
-            data.map((e) => (
-              <div className="notification">
-                <p className="mx-2">{e.name}</p>
-              </div>
-            ))
-          ) : (
-            <p className="mx-3 mt-4 mb-2" style={{ color: "green" }}>
-              No notifications at the moment
-            </p>
-          )}
-        </div>
       </section>
     </>
   );

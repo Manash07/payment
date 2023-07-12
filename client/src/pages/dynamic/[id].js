@@ -10,9 +10,8 @@ const DynamicPage = () => {
   const { id } = router.query; // This will extract the dynamic parameter from the URL
   const managerList = servicesList?.filter((e) => e.title == id);
   const listFields = formsList?.filter((e) => e.title == id);
-  const finalList = listFields.map((e) => e.formField);
+  const finalList = listFields?.map((e) => e.formField);
   console.log(finalList);
-
   return (
     <>
     <Header/>
@@ -39,7 +38,7 @@ const DynamicPage = () => {
           })}
 
           <button
-            type="submit"
+
             className="btn btn-success mx-3 mb-3 mt-3"
             onClick={() => {router.push("/"); console.log("Back")}}
           >

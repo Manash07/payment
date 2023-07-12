@@ -40,6 +40,7 @@ next-env.d.ts
 /src/pages/schema
 /src/pages/advanceForm
 /src/pages/basicForm
+/src/pages/component/formComponent
 
 
 
