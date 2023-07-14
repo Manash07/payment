@@ -50,6 +50,7 @@ const KYC = () => {
   const toast = useToast();
 
   const { status } = useSelector((state) => state.kycForm);
+  const { phoneNumber} = useSelector((state) => state.nameManash);
 
   const handleRegister = async (values, resetForm) => {
     try {
@@ -80,7 +81,7 @@ const KYC = () => {
       } else {
         toast({
           title: "Could not submit",
-          description: "Phone number already exists or wrong phone number.",
+          description: "Phone number already exists.Try to edit your details instead.",
           status: "error",
           duration: 2000,
           isClosable: true,
@@ -93,32 +94,12 @@ const KYC = () => {
 
   return (
     <>
-      {/* <Stepper index="0" className="mb-3 mt-3">
-        {steps.map((step, index) => (
-          <Step key={index}>
-            <StepIndicator>
-              <StepStatus
-                complete={<StepIcon />}
-                incomplete={<StepNumber />}
-                active={<StepNumber />}
-              />
-            </StepIndicator>
-
-            <Box flexShrink="0">
-              <StepTitle>{step.title}</StepTitle>
-              <StepDescription>{step.description}</StepDescription>
-            </Box>
-
-            <StepSeparator />
-          </Step>
-        ))}
-      </Stepper> */}
 
       <Formik
         autoComplete="off"
         validationSchema={schema}
         initialValues={{
-          phoneNumber: "",
+          phoneNumber: phoneNumber,
           name: "",
           documentType: "",
           bankLocation: "",
@@ -148,7 +129,7 @@ const KYC = () => {
                       >
                         <span style={{ color: "blue" }}>
                           {" "}
-                          Registered Mobile Number (required) *{" "}
+                          Registered Mobile Number 
                         </span>
                       </label>
                       <input
@@ -158,6 +139,7 @@ const KYC = () => {
                         value={values.phoneNumber}
                         id="phoneNumber"
                         onBlur={handleBlur}
+                        disabled
                       />
 
                       <p className="error" style={{ color: "red" }}>

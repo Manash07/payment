@@ -1,13 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
-import Header from "@/components/header";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useToast } from "@chakra-ui/react";
-import SecondaryHeader from "@/components/secondarynavbar";
 import AdminHeader from "@/components/adminHeader";
-import { Badge, Input } from "@chakra-ui/react";
+import { Badge } from "@chakra-ui/react";
 
 const Admin = () => {
+  
   const { name, role } = useSelector((state) => state.nameManash);
   const dispatch = useDispatch();
   const router = useRouter();
