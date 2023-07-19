@@ -12,6 +12,6 @@ router.post("/login", login);
 
 router.post("/kyc", form);
 
-router.get("/details", getKyc);
+router.post("/details", getKyc);
 
 module.exports = router;

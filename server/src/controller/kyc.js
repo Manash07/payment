@@ -4,8 +4,6 @@ const Kyc = require("../model/kyc");
 const form = async (req, res) => {
   try {
     const getData = await Kyc.findOne({ phoneNumber: req.body.phoneNumber });
-    console.log(getData);
-
     if (getData) {
       res.status(401).json({
         msg: "Could not create",
@@ -43,6 +41,7 @@ const form = async (req, res) => {
 
 const getKyc = async (req, res) => {
   const data = await Kyc.findOne({ phoneNumber: req.body.phoneNumber});
+  console.log(data)
   if (data) {
     res.json({
       data,

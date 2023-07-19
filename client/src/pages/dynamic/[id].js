@@ -5,6 +5,7 @@ import servicesList from "@/data/services";
 import { formsList } from "@/data/services";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import { Select } from "@chakra-ui/react";
 const DynamicPage = () => {
   const router = useRouter();
   const { id } = router.query; // This will extract the dynamic parameter from the URL
@@ -14,7 +15,7 @@ const DynamicPage = () => {
   console.log(finalList);
   return (
     <>
-    <Header/>
+      <Header />
       <div>
         <form className="dynamic-form mb-5">
           <h3 className="mx-3 mt-2">Dynamic ID: {id}</h3>
@@ -37,10 +38,14 @@ const DynamicPage = () => {
             );
           })}
 
-          <button
+          <Select placeholder="Choose your Bank" name="gender"></Select>
 
+          <button
             className="btn btn-success mx-3 mb-3 mt-3"
-            onClick={() => {router.push("/"); console.log("Back")}}
+            onClick={() => {
+              router.push("/");
+              console.log("Back");
+            }}
           >
             Back
           </button>
@@ -48,7 +53,7 @@ const DynamicPage = () => {
           <button className="btn btn-success mx-3 mb-3 mt-3">Submit</button>
         </form>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };

@@ -11,11 +11,32 @@ import { useToast } from "@chakra-ui/react";
 
 // Creating yup schema
 
+function checkValidity(values) {
+  if (values && isNaN(Number(values)) && values.includes("@")) {
+    if (values.includes(".")) {
+      return ["email", true];
+    } else {
+      return ["email", false];
+    }
+  } else if (values && !isNaN(Number(values))) {
+    if (values.length == 10) {
+      return ["phonenumber", true];
+    } else {
+      return ["phonenumber", false];
+    }
+  } else {
+    return [" email or phone number", false];
+  }
+}
+
 const schema = Yup.object().shape({
-  phoneNumber: Yup.string()
-    .min(10, "Phone number should not be less than 10 numbers")
-    .max(10, "Phone number should not exceeds 10 numbers")
-    .required("Required"),
+  userIdentityField: Yup.string().test(
+    `Validate` /*Test case name*/,
+
+    (item) => "Invalid" + checkValidity(item.values)[0] /** Error message  */,
+
+    (value) => value && checkValidity(value)[1]
+  ),
 
   password: Yup.string().required("Required"),
 });
@@ -25,10 +46,11 @@ export default function Login() {
   const router = useRouter();
   const [isVisible, changeIsVisible] = useState(true);
   const toast = useToast();
+  const [valueStatus, setValueEnable] = useState("disabled");
 
   const handleLogin = async (values, resetForm) => {
     try {
-      //debugger;
+     
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -38,8 +60,8 @@ export default function Login() {
       const data = await res.json()
 
       if (res.status == 200) {
-
-        dispatch(setLogin(data))
+        dispatch(setLogin(data));
+        
         toast({
           title: "Login successfully",
           description: "Please wait.......",
@@ -103,7 +125,7 @@ export default function Login() {
         validationSchema={schema}
         initialValues={{
           password: "",
-          phoneNumber: "",
+          userIdentityField: "",
         }}
         onSubmit={(values, { resetForm }) => {
           handleLogin(values, resetForm);
@@ -161,22 +183,21 @@ export default function Login() {
                           htmlFor="exampleInputPassword1"
                           className="form-label"
                         >
-                          Phone Number <span style={{ color: "red" }}> * </span>
+                          Email Address or Phone Number{" "}
+                          <span style={{ color: "red" }}> * </span>
                         </label>
                         <input
-                          type="number"
                           className="form-control"
-                          id="exampleInputPassword1"
-                          name="phoneNumber"
-                          value={values.phoneNumber}
+                          name="userIdentityField"
+                          value={values.userIdentityField}
                           onChange={handleChange}
                           onBlur={handleBlur}
                         />
                       </div>
                       <p className="error" style={{ color: "red" }}>
-                        {errors.phoneNumber &&
-                          touched.phoneNumber &&
-                          errors.phoneNumber}
+                        {errors.userIdentityField &&
+                          touched.userIdentityField &&
+                          errors.userIdentityField}
                       </p>
                       <div className="mb-3">
                         <label
@@ -188,7 +209,7 @@ export default function Login() {
                         <input
                           type="password"
                           className="form-control"
-                          id="exampleInputPassword1"
+
                           onChange={handleChange}
                           value={values.password}
                           name="password"

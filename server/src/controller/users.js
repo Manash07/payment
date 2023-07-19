@@ -28,7 +28,17 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const data = await Users.findOne({ phoneNumber: req.body.phoneNumber });
+    const userIdentityField = req.body.userIdentityField;
+    const isPhoneNumber = /^\d+$/.test(userIdentityField); // Check if userIdentityField is a phone number
+
+    let query;
+    if (isPhoneNumber) {
+      query = { phoneNumber: userIdentityField };
+    } else {
+      query = { email: userIdentityField };
+    }
+
+    const data = await Users.findOne(query);
 
     if (data) {
       const isMatched = await bcrypt.compare(req.body.password, data.password);
@@ -49,6 +59,7 @@ const login = async (req, res) => {
           role: data.role,
           name: data.name,
           phoneNumber: data.phoneNumber,
+          email: data.email,
         });
       } else {
         res.status(401).json({
@@ -66,7 +77,5 @@ const login = async (req, res) => {
     });
   }
 };
-
-
 
 module.exports = { register, login };
