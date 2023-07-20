@@ -252,23 +252,16 @@ const Admin = () => {
                             disabled
                           />
 
-                          <h5 className="mt-4">Document Number</h5>
+                          <h5 className="mt-4">Gender</h5>
                           <input
                             type="text"
                             className="form-control"
                             placeholder=""
-                            value={myDetails?.data?.documentNumber}
+                            value={myDetails?.data?.gender}
                             disabled
                           />
 
-                          <h5 className="mt-4">Document Issued Office</h5>
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder=""
-                            value={myDetails?.data?.documentIssuedOffice}
-                            disabled
-                          />
+                  
                         </div>
                       </div>
                     </div>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Formik } from "formik";
+import { Formik, Field } from "formik";
 import * as Yup from "yup";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
@@ -9,6 +9,9 @@ import {
   AlertTitle,
   AlertDescription,
   Select,
+  Radio,
+  Stack,
+  RadioGroup,
 } from "@chakra-ui/react";
 // Creating yup schema
 
@@ -31,8 +34,9 @@ const schema = Yup.object().shape({
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
       "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
     ),
+    
 
-  gender: Yup.string().required("Required"),
+
 });
 
 export default function Register() {
@@ -233,35 +237,6 @@ export default function Register() {
                             errors.phoneNumber}
                         </p>
                       </div>
-
-                      <div className="mb-5">
-                        <label
-                          htmlFor="exampleInputPassword1"
-                          className="form-label"
-                        >
-                          Gender <span style={{ color: "red" }}> * </span>
-                        </label>
-
-                        <Select
-                          placeholder="Choose your Gender"
-                          name="gender"
-                          style={{margin: "0px"}}
-                          onChange={handleChange}
-                          value={values.gender}
-                          onBlur={handleBlur}
-                        >
-                          <option> Male </option>
-                          <option> Female </option>
-                          <option> Other </option>
-                        </Select>
-
-                        <p className="error" style={{ color: "red" }}>
-                          {errors.gender &&
-                            touched.gender &&
-                            errors.gender}
-                        </p>
-                      </div>
-
                       <button type="submit" className="btn btn-success">
                         Register
                       </button>

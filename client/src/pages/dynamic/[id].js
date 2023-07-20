@@ -38,8 +38,6 @@ const DynamicPage = () => {
             );
           })}
 
-          <Select placeholder="Choose your Bank" name="gender"></Select>
-
           <button
             className="btn btn-success mx-3 mb-3 mt-3"
             onClick={() => {

@@ -146,7 +146,7 @@ const Home = () => {
                                   <h5 className="mt-4"> Bank Branch </h5>
                                   <input
                                     type="text"
-                                    className="form-control mt-4"
+                                    className="form-control"
                                     placeholder=""
                                     value={myDetails?.data?.bankBranch}
                                     disabled
@@ -173,23 +173,14 @@ const Home = () => {
                                     disabled
                                   />
 
-                                  <h5 className="mt-4">Document Number</h5>
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder=""
-                                    value={myDetails?.data?.documentNumber}
-                                    disabled
-                                  />
-
                                   <h5 className="mt-4">
-                                    Document Issued Office
+                                    Gender
                                   </h5>
                                   <input
                                     type="text"
                                     className="form-control"
                                     placeholder=""
-                                    value={myDetails?.data?.documentIssuedOffice}
+                                    value={myDetails?.data?.gender}
                                     disabled
                                   />
                                 </div>

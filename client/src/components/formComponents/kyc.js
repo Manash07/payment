@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { Formik } from "formik";
+import { Formik, Field } from "formik";
 import * as Yup from "yup";
 import React from "react";
-import { useToast } from "@chakra-ui/react";
+import { useToast, Select } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { setForm } from "@/redux/reducerslice/kycSlice";
 import { useDispatch, useSelector } from "react-redux";
+import bankList from "@/data/banklist";
+import { district, branches } from "@/data/banklist";
 
 const schema = Yup.object().shape({
   fullName: Yup.string()
@@ -16,41 +18,25 @@ const schema = Yup.object().shape({
     .min(10, "Phone number must be 10 numbers")
     .max(10, "Phone number cannot exceed 10 numbers")
     .required("Required"),
-  bankName: Yup.string()
-    .min(5, "Bank ame must be minimum 5 letters")
-    .max(20, "Bank name must not exceeds 25 letters")
-    .required("Required"),
-  bankLocation: Yup.string()
-    .min(5, "Bank Location must be minimum 5 letters")
-    .max(20, "Bank name must not exceeds 25 letters")
-    .required("Required"),
+  bankName: Yup.string().required("Required"),
+  bankLocation: Yup.string().required("Required"),
   bankBranch: Yup.string()
     .min(5, "Bank branch must be minimum 5 letters")
     .required("Required"),
-  bankAccount: Yup.string()
-    .min(14, "Bank account must be minimum 14 number")
-    .max(14, "Bank account must not exceeds 14 number")
-    .required("Required"),
-  documentType: Yup.string()
-    .min(3, "Document type must be minimum 3 letters")
-    .max(20, "Document name must not exceeds 25 letters"),
-
-  documentNumber: Yup.string()
-    .min(3, "Document number must be valid.")
-    .required("Required"),
-  documentIssuedOffice: Yup.string().min(
-    3,
-    "Document issued office must be minimum 3 letters"
-  ),
+  bankAccount: Yup.string().required("Required"),
+  documentType: Yup.string().required("Required"),
+  gender: Yup.string().required("Required"),
 });
 
 const KYC = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const toast = useToast();
-
+  const [selectedBank, setBank] = useState("");
+  const [selectedDist, setDist] = useState("");
+  const filteredBranch = branches.filter((e) => e.value == selectedDist);
   const { status } = useSelector((state) => state.kycForm);
-  const { phoneNumber} = useSelector((state) => state.nameManash);
+  const { phoneNumber } = useSelector((state) => state.nameManash);
 
   const handleRegister = async (values, resetForm) => {
     try {
@@ -81,7 +67,8 @@ const KYC = () => {
       } else {
         toast({
           title: "Could not submit",
-          description: "Phone number already exists.Try to edit your details instead.",
+          description:
+            "Phone number already exists.Try to edit your details instead.",
           status: "error",
           duration: 2000,
           isClosable: true,
@@ -94,7 +81,6 @@ const KYC = () => {
 
   return (
     <>
-
       <Formik
         autoComplete="off"
         validationSchema={schema}
@@ -129,7 +115,7 @@ const KYC = () => {
                       >
                         <span style={{ color: "blue" }}>
                           {" "}
-                          Registered Mobile Number 
+                          Registered Mobile Number
                         </span>
                       </label>
                       <input
@@ -170,30 +156,85 @@ const KYC = () => {
                       </p>
                     </div>
 
-                    <div className="mb-3 mt-3">
+                    <div className="mb-5">
+                      <label
+                        htmlFor="exampleInputPassword1"
+                        className="form-label mt-3"
+                        style={{ fontSize: "15px" }}
+                      >
+                        Gender
+                      </label>
+
+                      <div className="mb-4" id="my-radio-group"></div>
+                      <div role="group" aria-labelledby="my-radio-group">
+                        <label className="mx-0" style={{ fontSize: "15px" }}>
+                          <Field
+                            className="mx-1"
+                            type="radio"
+                            name="gender"
+                            value="Male"
+                            style={{ width: "20px", height: "20px" }}
+                          />
+                          Male
+                        </label>
+                        <label className="mx-0" style={{ fontSize: "15px" }}>
+                          <Field
+                            className="mx-2"
+                            type="radio"
+                            name="gender"
+                            value="Female"
+                            style={{ width: "20px", height: "20px" }}
+                          />
+                          Female
+                        </label>
+                        <label className="mx-0" style={{ fontSize: "15px" }}>
+                          <Field
+                            className="mx-2"
+                            type="radio"
+                            name="gender"
+                            value="Other"
+                            style={{ width: "20px", height: "20px" }}
+                          />
+                          Other
+                        </label>
+                      </div>
+
+                      <p className="error" style={{ color: "red" }}>
+                        {errors.gender && touched.gender && errors.gender}
+                      </p>
+                    </div>
+
+                    <div className="mb-3 mt-3 ">
                       <label
                         htmlFor="exampleInputEmail1"
                         className="form-label"
                       >
-                        Document Number
+                        Document Type
                       </label>
-                      <input
-                        type="text"
-                        className="input-custom"
+                      <Select
+                        placeholder="Choose your document type"
+                        name="documentType"
+                        style={{ margin: "0px" }}
                         onChange={handleChange}
-                        value={values.documentNumber}
-                        id="documentNumber"
+                        value={values.documentType}
                         onBlur={handleBlur}
-                      />
+                      >
+                        <option> Citizenship </option>
+                        <option> License </option>
+                        <option> National Identity Card </option>
+                        <option> Government Officer ID </option>
+                        <option> Election Voter Card </option>
+                      </Select>
+
                       <p className="error" style={{ color: "red" }}>
-                        {errors.documentNumber &&
-                          touched.documentNumber &&
-                          errors.documentNumber}
+                        {errors.documentType &&
+                          touched.documentType &&
+                          errors.documentType}
                       </p>
                     </div>
                   </div>
 
-                  <div className="mx-5 px-5 col-md-4 col-lg-4 col-sm-12">
+                  <div className="mx-5 px-5 col-md-5 col-lg-5 col-sm-12">
                     <div classname="mb-3">
                       <label
                         htmlFor="exampleInputEmail1"
@@ -201,66 +242,92 @@ const KYC = () => {
                       >
                         Bank Name
                       </label>
-
-                      <input
-                        type="text"
-                        className="input-custom"
+                      <Select
+                        placeholder="Choose your Bank"
+                        name="bankName"
+                        style={{ margin: "0px" }}
                         onChange={handleChange}
                         value={values.bankName}
-                        id="bankName"
                         onBlur={handleBlur}
-                      />
+                      >
+                        {bankList?.map((e) => {
+                          setBank(values.bankName);
+                          console.log(selectedBank);
+
+                          return <option> {e.label} </option>;
+                        })}
+                      </Select>
 
                       <p className="error" style={{ color: "red" }}>
                         {errors.bankName && touched.bankName && errors.bankName}
                       </p>
                     </div>
+                    {selectedBank?.length > 0 ? (
+                      <>
+                        <div classname="mb-3 mt-4" style={{ marginTop: "3vh" }}>
+                          <label
+                            htmlFor="exampleInputEmail1"
+                            className="form-label"
+                          >
+                            Bank Location
+                          </label>
 
-                    <div classname="mb-3 mt-4" style={{ marginTop: "3vh" }}>
-                      <label
-                        htmlFor="exampleInputEmail1"
-                        className="form-label"
-                      >
-                        Bank Location
-                      </label>
-                      <input
-                        type="text"
-                        className="input-custom"
-                        onChange={handleChange}
-                        value={values.bankLocation}
-                        id="bankLocation"
-                        onBlur={handleBlur}
-                      />
+                          <Select
+                            placeholder="Choose your District"
+                            name="bankLocation"
+                            style={{ margin: "0px" }}
+                            onChange={handleChange}
+                            value={values.bankLocation}
+                            onBlur={handleBlur}
+                          >
+                            {district?.map((e) => {
+                              setDist(values.bankLocation);
+                              return <option> {e.label} </option>;
+                            })}
+                          </Select>
 
-                      <p className="error" style={{ color: "red" }}>
-                        {errors.bankLocation &&
-                          touched.bankLocation &&
-                          errors.bankLocation}
-                      </p>
-                    </div>
+                          <p className="error" style={{ color: "red" }}>
+                            {errors.bankLocation &&
+                              touched.bankLocation &&
+                              errors.bankLocation}
+                          </p>
+                        </div>
+                      </>
+                    ) : null}
 
-                    <div classname="mb-3 mx-3" style={{ marginTop: "3vh" }}>
-                      <label
-                        htmlFor="exampleInputEmail1"
-                        className="form-label"
-                      >
-                        Bank Branch
-                      </label>
-                      <input
-                        type="text"
-                        className="input-custom"
-                        onChange={handleChange}
-                        value={values.bankBranch}
-                        id="bankBranch"
-                        onBlur={handleBlur}
-                      />
+                    {selectedDist?.length > 0 ? (
+                      <>
+                        <div classname="mb-3 mt-4" style={{ marginTop: "3vh" }}>
+                          <label
+                            htmlFor="exampleInputEmail1"
+                            className="form-label"
+                          >
+                            Bank Branch
+                          </label>
 
-                      <p className="error" style={{ color: "red" }}>
-                        {errors.bankBranch &&
-                          touched.bankBranch &&
-                          errors.bankBranch}
-                      </p>
-                    </div>
+                          <Select
+                            placeholder="Choose your Branch"
+                            name="bankBranch"
+                            style={{ margin: "0px" }}
+                            onChange={handleChange}
+                            value={values.Branch}
+                            onBlur={handleBlur}
+                          >
+                            {filteredBranch?.map((e) => {
+                             
+                              return <option> {e.label} </option>;
+                            })}
+                          </Select>
+
+                          <p className="error" style={{ color: "red" }}>
+                            {errors.bankBranch &&
+                              touched.bankBranch &&
+                              errors.bankBranch}
+                          </p>
+                        </div>
+                      </>
+                    ) : null}
+
 
                     <div className="mb-3 mt-3">
                       <label

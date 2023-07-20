@@ -7,8 +7,7 @@ const kycSchema = new mongoose.Schema({
   bankBranch: {type: String, default:"N/A"},
   bankAccount: {type: Number, default:"N/A"},
   documentType: {type: String, default:"N/A"},
-  documentNumber: {type: String, default:"N/A"},
-  documentIssuedOffice: {type: String, default:"N/A"},
+  gender:{type: String},
   status:{type:String, default:"SUBMITTED"}
 })
 
