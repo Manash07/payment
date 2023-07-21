@@ -3,13 +3,16 @@ const Kyc = require("../model/kyc");
 
 const form = async (req, res) => {
   try {
+   
+    const dataFile = {...req.body, "userImage":req.file.filename}
+    console.log(dataFile)
     const getData = await Kyc.findOne({ phoneNumber: req.body.phoneNumber });
     if (getData) {
       res.status(401).json({
         msg: "Could not create",
       });
     } else {
-      const data = await Kyc.create(req.body);
+      const data = await Kyc.create(dataFile);
 
       if (data) {
         res.status(200).json({
@@ -24,6 +27,8 @@ const form = async (req, res) => {
           documentIssuedOffice: data.documentIssuedOffice,
           documentNumber: data.documentNumber,
           documentType: data.documentType,
+          image: data.userImage,
+          
         });
         res.json({
           msg: "Created successfully",

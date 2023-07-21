@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import bankList from "@/data/banklist";
 import { district, branches } from "@/data/banklist";
 
+
 const schema = Yup.object().shape({
   fullName: Yup.string()
     .min(5, "Full name must be more than 5 letters")
@@ -26,6 +27,7 @@ const schema = Yup.object().shape({
   bankAccount: Yup.string().required("Required"),
   documentType: Yup.string().required("Required"),
   gender: Yup.string().required("Required"),
+  userImage: Yup.string().required("Required"),
 });
 
 const KYC = () => {
@@ -37,6 +39,9 @@ const KYC = () => {
   const filteredBranch = branches.filter((e) => e.value == selectedDist);
   const { status } = useSelector((state) => state.kycForm);
   const { phoneNumber } = useSelector((state) => state.nameManash);
+  const[file, setFile] = useState(null)
+
+  console.log(file)
 
   const handleRegister = async (values, resetForm) => {
     try {
@@ -104,6 +109,7 @@ const KYC = () => {
           handleBlur,
         }) => (
           <section className="kyc-form mb-3 mt-3">
+              {JSON.stringify(file)}
             <form autoComplete="off" onSubmit={handleSubmit}>
               <div className="container-fluid">
                 <div className="row">
@@ -153,6 +159,33 @@ const KYC = () => {
 
                       <p className="error" style={{ color: "red" }}>
                         {errors.fullName && touched.fullName && errors.fullName}
+                      </p>
+                    </div>
+
+
+                    <div className="mb-3 mt-3">
+                      <label
+                        htmlFor="exampleInputEmail1"
+                        className="form-label"
+                      >
+                        Upload your document
+                      </label>
+                      <input
+                        type="file"
+                        className=""
+                        onChange={(e) => {
+                          
+                          setFile(e.target.files[0])
+                        
+                        }}
+                        value={values.userImage}
+                        id="userImage"
+                        onBlur={handleBlur}
+                       
+                      />
+
+                      <p className="error" style={{ color: "red" }}>
+                        {errors.userImage && touched.userImage && errors.userImage}
                       </p>
                     </div>
 
@@ -310,7 +343,7 @@ const KYC = () => {
                             name="bankBranch"
                             style={{ margin: "0px" }}
                             onChange={handleChange}
-                            value={values.Branch}
+                            value={values.bankBranch}
                             onBlur={handleBlur}
                           >
                             {filteredBranch?.map((e) => {

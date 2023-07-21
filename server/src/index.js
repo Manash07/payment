@@ -23,6 +23,7 @@ console.log("Now you are connected to database");
 app.use("/", userRoute);
 app.use("/", adminRoute);
 
+
 app.listen(process.env.PORT, () => {
   console.log(`Server is listening on port`, process.env.PORT);
 });
