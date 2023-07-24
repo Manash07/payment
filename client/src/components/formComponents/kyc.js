@@ -8,7 +8,7 @@ import { setForm } from "@/redux/reducerslice/kycSlice";
 import { useDispatch, useSelector } from "react-redux";
 import bankList from "@/data/banklist";
 import { district, branches } from "@/data/banklist";
-
+import axios from "axios";
 
 const schema = Yup.object().shape({
   fullName: Yup.string()
@@ -27,7 +27,7 @@ const schema = Yup.object().shape({
   bankAccount: Yup.string().required("Required"),
   documentType: Yup.string().required("Required"),
   gender: Yup.string().required("Required"),
-  userImage: Yup.string().required("Required"),
+  userImage: Yup.string(),
 });
 
 const KYC = () => {
@@ -39,21 +39,23 @@ const KYC = () => {
   const filteredBranch = branches.filter((e) => e.value == selectedDist);
   const { status } = useSelector((state) => state.kycForm);
   const { phoneNumber } = useSelector((state) => state.nameManash);
-  const[file, setFile] = useState(null)
+  const [file, setFile] = useState(null);
 
-  console.log(file)
+  console.log(file);
 
   const handleRegister = async (values, resetForm) => {
+    const form = new FormData();
+
+    Object.entries(values).forEach((item) => {
+      form.append(item[0], item[1]);
+      console.log(item[1]);
+    });
+    form.append("userImage", file);
+
     try {
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      };
+      const res = await axios.post("http://localhost:8080/kyc", form);
 
-      const res = await fetch("http://localhost:8080/kyc", requestOptions);
-
-      const data = await res.json();
+      const data = await res.data;
 
       if (res.status == 200 && data) {
         dispatch(setForm(data));
@@ -80,7 +82,14 @@ const KYC = () => {
         });
       }
     } catch (err) {
-      console.log(err);
+      toast({
+        title: "Could not submit",
+        description:
+          "Phone number already exists.Try to edit your details instead.",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
     }
   };
 
@@ -109,7 +118,6 @@ const KYC = () => {
           handleBlur,
         }) => (
           <section className="kyc-form mb-3 mt-3">
-              {JSON.stringify(file)}
             <form autoComplete="off" onSubmit={handleSubmit}>
               <div className="container-fluid">
                 <div className="row">
@@ -162,7 +170,6 @@ const KYC = () => {
                       </p>
                     </div>
 
-
                     <div className="mb-3 mt-3">
                       <label
                         htmlFor="exampleInputEmail1"
@@ -174,18 +181,17 @@ const KYC = () => {
                         type="file"
                         className=""
                         onChange={(e) => {
-                          
-                          setFile(e.target.files[0])
-                        
+                          setFile(e.target.files[0]);
                         }}
                         value={values.userImage}
                         id="userImage"
                         onBlur={handleBlur}
-                       
                       />
 
                       <p className="error" style={{ color: "red" }}>
-                        {errors.userImage && touched.userImage && errors.userImage}
+                        {errors.userImage &&
+                          touched.userImage &&
+                          errors.userImage}
                       </p>
                     </div>
 
@@ -347,7 +353,6 @@ const KYC = () => {
                             onBlur={handleBlur}
                           >
                             {filteredBranch?.map((e) => {
-                             
                               return <option> {e.label} </option>;
                             })}
                           </Select>
@@ -360,7 +365,6 @@ const KYC = () => {
                         </div>
                       </>
                     ) : null}
-
 
                     <div className="mb-3 mt-3">
                       <label
