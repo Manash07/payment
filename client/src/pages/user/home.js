@@ -17,12 +17,14 @@ import { setForm } from "@/redux/reducerslice/kycSlice";
 import { useToast } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import axios from "axios";
 
 const Home = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { phoneNumber } = useSelector((state) => state.nameManash);
   const [myDetails, setMyDetails] = useState({ data: { fullName: "Loading" } });
   const toast = useToast();
+  const [imageSrc, setImageSrc] = useState();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -66,13 +68,36 @@ const Home = () => {
     handleKYC();
   }, []);
 
+  // useEffect(() => {
+  //   console.log(myDetails.data);
+  // }, [myDetails]);
+
+  const fetchItem = async () => {
+
+    try{
+
+      const res = await fetch(`http://localhost:8080/image/${phoneNumber}`);
+      const data = await res.blob();
+      setImageSrc(data)
+
+    }catch(err){
+      console.log(err)
+    }
+   
+  
+  
+  };
+
   useEffect(() => {
-    console.log(myDetails.data);
-  }, [myDetails]);
+
+  fetchItem()
+  
+},[]);
+
+
 
   return (
     <>
-      {" "}
       <section className="midsection home mt-3 mb-4">
         <div className="container-fluid main">
           <div className="container">
@@ -100,7 +125,7 @@ const Home = () => {
                                 <div className="col-md-4 col-lg-4 col-sm-12">
                                   <div className="text-center">
                                     <img
-                                      src="/Avatar.png"
+                                     src={imageSrc && URL.createObjectURL(imageSrc)}
                                       className="rounded"
                                       style={{ height: "10rem" }}
                                       alt="..."
@@ -173,9 +198,7 @@ const Home = () => {
                                     disabled
                                   />
 
-                                  <h5 className="mt-4">
-                                    Gender
-                                  </h5>
+                                  <h5 className="mt-4">Gender</h5>
                                   <input
                                     type="text"
                                     className="form-control"

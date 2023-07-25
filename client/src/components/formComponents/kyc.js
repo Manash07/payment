@@ -37,11 +37,11 @@ const KYC = () => {
   const [selectedBank, setBank] = useState("");
   const [selectedDist, setDist] = useState("");
   const filteredBranch = branches.filter((e) => e.value == selectedDist);
-  const { status } = useSelector((state) => state.kycForm);
+  const { userImage } = useSelector((state) => state.kycForm);
   const { phoneNumber } = useSelector((state) => state.nameManash);
   const [file, setFile] = useState(null);
 
-  console.log(file);
+ 
 
   const handleRegister = async (values, resetForm) => {
     const form = new FormData();
@@ -55,7 +55,7 @@ const KYC = () => {
     try {
       const res = await axios.post("http://localhost:8080/kyc", form);
 
-      const data = await res.data;
+      const data = await res.data
 
       if (res.status == 200 && data) {
         dispatch(setForm(data));

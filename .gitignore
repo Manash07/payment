@@ -9,6 +9,9 @@ logs
 *.log
 npm-debug.log*
 
+/server/uploads
+
+
 # Runtime data
 pids
 *.pid

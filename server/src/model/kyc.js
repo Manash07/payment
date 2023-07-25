@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const kycSchema = new mongoose.Schema({
+  id:String,
   phoneNumber:{type: String},
   fullName: {type: String, default:"N/A"},
   bankName: {type: String, default:"N/A"},

@@ -1,10 +1,12 @@
+const Kyc = require("../model/kyc");
+
 const express = require("express");
 
 const router = express.Router();
 
 const multer = require("multer");
 
-const { form, getKyc } = require("../controller/kyc");
+const { form, getKyc, getImg } = require("../controller/kyc");
 
 const { register, login } = require("../controller/users");
 
@@ -14,7 +16,7 @@ router.post("/login", login);
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/");
+    cb(null, "../uploads/");
   },
   filename: function (req, file, cb) {
     console.log(file);
@@ -24,8 +26,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post("/kyc", upload.single('userImage'),form);
+router.post("/kyc", upload.single("userImage"), form);
 
 router.post("/details", getKyc);
+
+router.get("/image/:id", getImg);
 
 module.exports = router;

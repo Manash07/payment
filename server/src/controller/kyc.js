@@ -1,12 +1,11 @@
 const mongoose = require("mongoose");
 const Kyc = require("../model/kyc");
-
+const path = require("path");
 
 const form = async (req, res) => {
   try {
-   
-    const dataFile = {...req.body, "userImage":req.file.filename}
-    console.log(dataFile)
+    const dataFile = { ...req.body, userImage: req.file.filename };
+    // console.log(dataFile)
     const getData = await Kyc.findOne({ phoneNumber: req.body.phoneNumber });
     if (getData) {
       res.status(401).json({
@@ -29,7 +28,7 @@ const form = async (req, res) => {
           documentNumber: data.documentNumber,
           documentType: data.documentType,
           image: data.userImage,
-          
+          id: data.__id,
         });
         res.json({
           msg: "Created successfully",
@@ -46,16 +45,34 @@ const form = async (req, res) => {
 };
 
 const getKyc = async (req, res) => {
-  const data = await Kyc.findOne({ phoneNumber: req.body.phoneNumber});
-  console.log(data)
-  if (data) {
-    res.json({
-      data,
-    });
-  } else {
-    res.status(404).json({
-      msg: "Could not find one",
-    });
+  try {
+    const data = await Kyc.findOne({ phoneNumber: req.body.phoneNumber });
+
+    if (data) {
+      res.json({
+        data,
+      });
+    } else {
+      res.status(404).json({
+        msg: "Could not find one",
+      });
+    }
+  } catch (err) {
+    console.log(err);
   }
 };
-module.exports = { form, getKyc };
+
+const getImg = async (req, res) => {
+  try {
+    const data = await Kyc.findOne({ phoneNumber: req.params.id });
+    console.log(data);
+    const kycImage = data.userImage;
+    const imgPath = path.join(__dirname, "../../uploads", kycImage);
+    console.log(imgPath);
+    res.sendFile(imgPath);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+module.exports = { form, getKyc, getImg };

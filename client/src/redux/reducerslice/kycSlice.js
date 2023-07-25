@@ -12,6 +12,7 @@ const initialState = {
   bankBranch:"",
   bankAccount:"",
   status:"",
+  id:""
 };
 
 const kycSlice = createSlice({
